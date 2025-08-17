@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    restart: always 
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - '1337:1337'
+    volumes:
+      - ./backend:/app
+      - node_modules_backend:/app/node_modules
+    depends_on:
+      mysql:
+        condition: service_healthy
+    env_file:
+      - ./backend/.env
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development 
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./frontend:/app
+      - node_modules_frontend:/app/node_modules
+    depends_on:
+      - backend
+    env_file:
+      - ./frontend/.env
+
+volumes:
+  mysql_data:
+  node_modules_backend:
+  node_modules_frontend:
