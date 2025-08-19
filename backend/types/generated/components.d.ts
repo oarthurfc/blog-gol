@@ -64,12 +64,27 @@ export interface SharedSeo extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedUser extends Struct.ComponentSchema {
+  collectionName: 'components_shared_users';
+  info: {
+    displayName: 'user';
+    icon: 'user';
+  };
+  attributes: {
+    firstname: Schema.Attribute.String & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'>;
+    job: Schema.Attribute.String;
+    lastname: Schema.Attribute.String;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'dynamic-zone.related-articles': DynamicZoneRelatedArticles;
       'shared.open-graph': SharedOpenGraph;
       'shared.seo': SharedSeo;
+      'shared.user': SharedUser;
     }
   }
 }
