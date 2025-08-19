@@ -1,5 +1,18 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface DynamicZoneRelatedArticles extends Struct.ComponentSchema {
+  collectionName: 'components_dynamic_zone_related_articles';
+  info: {
+    displayName: 'related_articles';
+    icon: 'bulletList';
+  };
+  attributes: {
+    articles: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
+    heading: Schema.Attribute.String;
+    sub_heading: Schema.Attribute.String;
+  };
+}
+
 export interface SharedOpenGraph extends Struct.ComponentSchema {
   collectionName: 'components_shared_open_graphs';
   info: {
@@ -54,6 +67,7 @@ export interface SharedSeo extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'dynamic-zone.related-articles': DynamicZoneRelatedArticles;
       'shared.open-graph': SharedOpenGraph;
       'shared.seo': SharedSeo;
     }

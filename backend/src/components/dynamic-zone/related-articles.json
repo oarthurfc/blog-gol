@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_dynamic_zone_related_articles",
+  "info": {
+    "displayName": "related_articles",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": false
+    },
+    "sub_heading": {
+      "type": "string"
+    },
+    "articles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::article.article"
+    }
+  },
+  "config": {}
+}
