@@ -376,7 +376,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   collectionName: 'articles';
   info: {
-    displayName: 'Article';
+    displayName: 'Articles';
     pluralName: 'articles';
     singularName: 'article';
   };
