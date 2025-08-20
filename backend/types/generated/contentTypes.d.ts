@@ -447,7 +447,7 @@ export interface ApiBannerBanner extends Struct.CollectionTypeSchema {
 export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   collectionName: 'categories';
   info: {
-    displayName: 'Category';
+    displayName: 'Categories';
     pluralName: 'categories';
     singularName: 'category';
   };
@@ -476,7 +476,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
 export interface ApiTestimonialTestimonial extends Struct.CollectionTypeSchema {
   collectionName: 'testimonials';
   info: {
-    displayName: 'Testimonial';
+    displayName: 'Testimonials';
     pluralName: 'testimonials';
     singularName: 'testimonial';
   };
