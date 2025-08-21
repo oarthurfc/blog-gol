@@ -1,4 +1,4 @@
-import { strapiImage } from './strapiImage';
+import { strapiImage } from './strapi/strapiImage';
 
 export function generateMetadataObject(seo: any = {}) {
   return {
@@ -16,4 +16,4 @@ export function generateMetadataObject(seo: any = {}) {
       images: seo.twitterImage ? [{ url: seo.twitterImage }] : [],
     },
   };
-}
+}t
