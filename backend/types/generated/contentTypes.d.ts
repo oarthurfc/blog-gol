@@ -473,6 +473,37 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiHomeHome extends Struct.SingleTypeSchema {
+  collectionName: 'homes';
+  info: {
+    displayName: '/home';
+    pluralName: 'homes';
+    singularName: 'home';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bet_main_article: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::article.article'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::home.home'> &
+      Schema.Attribute.Private;
+    main_article: Schema.Attribute.Relation<'oneToOne', 'api::article.article'>;
+    middle_banner: Schema.Attribute.Relation<'oneToOne', 'api::banner.banner'>;
+    publishedAt: Schema.Attribute.DateTime;
+    top_banner: Schema.Attribute.Relation<'oneToOne', 'api::banner.banner'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiTestimonialTestimonial extends Struct.CollectionTypeSchema {
   collectionName: 'testimonials';
   info: {
@@ -1014,6 +1045,7 @@ declare module '@strapi/strapi' {
       'api::article.article': ApiArticleArticle;
       'api::banner.banner': ApiBannerBanner;
       'api::category.category': ApiCategoryCategory;
+      'api::home.home': ApiHomeHome;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
