@@ -16,4 +16,4 @@ export function generateMetadataObject(seo: any = {}) {
       images: seo.twitterImage ? [{ url: seo.twitterImage }] : [],
     },
   };
-}t
+}
