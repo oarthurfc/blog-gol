@@ -13,6 +13,46 @@ export interface DynamicZoneRelatedArticles extends Struct.ComponentSchema {
   };
 }
 
+export interface GlobalFooter extends Struct.ComponentSchema {
+  collectionName: 'components_global_footers';
+  info: {
+    displayName: 'Footer';
+  };
+  attributes: {
+    copyright: Schema.Attribute.String;
+    description: Schema.Attribute.String;
+    internal_links: Schema.Attribute.Component<'shared.link', true>;
+    logo: Schema.Attribute.Media<'images'>;
+    policy_links: Schema.Attribute.Component<'shared.link', true>;
+  };
+}
+
+export interface GlobalNavbar extends Struct.ComponentSchema {
+  collectionName: 'components_global_navbars';
+  info: {
+    displayName: 'Navbar';
+  };
+  attributes: {
+    logo: Schema.Attribute.Media<'images'>;
+    right_navbar_items: Schema.Attribute.Component<'shared.link', true>;
+  };
+}
+
+export interface SharedLink extends Struct.ComponentSchema {
+  collectionName: 'components_shared_links';
+  info: {
+    displayName: 'Link';
+    icon: 'link';
+  };
+  attributes: {
+    target: Schema.Attribute.Enumeration<
+      ['_blank', '_self', '_parent', '_top']
+    >;
+    text: Schema.Attribute.String;
+    URL: Schema.Attribute.String;
+  };
+}
+
 export interface SharedOpenGraph extends Struct.ComponentSchema {
   collectionName: 'components_shared_open_graphs';
   info: {
@@ -82,6 +122,9 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'dynamic-zone.related-articles': DynamicZoneRelatedArticles;
+      'global.footer': GlobalFooter;
+      'global.navbar': GlobalNavbar;
+      'shared.link': SharedLink;
       'shared.open-graph': SharedOpenGraph;
       'shared.seo': SharedSeo;
       'shared.user': SharedUser;
