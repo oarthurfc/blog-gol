@@ -497,6 +497,7 @@ export interface ApiHomeHome extends Struct.SingleTypeSchema {
     main_article: Schema.Attribute.Relation<'oneToOne', 'api::article.article'>;
     middle_banner: Schema.Attribute.Relation<'oneToOne', 'api::banner.banner'>;
     publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
     top_banner: Schema.Attribute.Relation<'oneToOne', 'api::banner.banner'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
