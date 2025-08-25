@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import fetchContentType from "@/lib/strapi/fetchContentType";
 import { generateMetadataObject } from "@/lib/metadata";
+import { Navbar } from "@/components/navbar";
 
 const interSans = Inter({
   variable: "--font-inter-sans",
@@ -29,16 +30,32 @@ export async function generateMetadata({
   return metadata;
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const pageData = await fetchContentType(
+    'global',
+    {
+      populate: {
+        navbar: { 
+          populate: ['logo', 'right_navbar_items']
+        },
+      }
+    },
+    true
+  );
+
+  console.log("Layout data:", pageData);
+
   return (
     <html lang="pt-BR">
       <body
         className={`${interSans.variable} antialiased`}
       >
+        <Navbar data={pageData?.navbar || null}/>
         {children}
       </body>
     </html>
