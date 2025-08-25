@@ -5,13 +5,14 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --card-background: #1a1a1a;
-  --primary-yellow: #FFC107;
+  --primary-yellow: #ffc107;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.13 0.028 261.692);
-  --card: oklch(1 0 0);
+
+  --card: oklch(0.2178 0 0);
   --card-foreground: oklch(0.13 0.028 261.692);
+
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.13 0.028 261.692);
   --primary: oklch(0.21 0.034 264.665);
@@ -43,7 +44,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --primary-yellow: #FFC107;
+    --primary-yellow: #ffc107;
   }
 }
 
@@ -83,7 +84,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
