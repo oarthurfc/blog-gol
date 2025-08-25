@@ -1,3 +1,4 @@
+import FeaturedArticleCard from "@/components/cards/FeaturedArticleCard";
 import { generateMetadataObject } from "@/lib/metadata";
 import fetchContentType from "@/lib/strapi/fetchContentType";
 import { strapiImage } from "@/lib/strapi/strapiImage";
@@ -25,16 +26,33 @@ export default async function Home() {
   console.log("Homepage", homepage)
 
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
+    <div className="flex flex-col w-full items-center py-16 gap-16 min-h-screen ">
       
-      <Image src={strapiImage(homepage.top_banner.image.url)} alt={""} width={1200} height={48} />
 
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+      <main className="flex flex-col gap-8  items-center sm:items-start">
+        <Image src={strapiImage(homepage.top_banner.image.url)} alt={""} width={1320} height={48} />
+
+        {/*First row */}
+        <div className="flex gap-6">
+          <FeaturedArticleCard
+            id={homepage.main_article.id}
+            title={homepage.main_article.title}
+            description={homepage.main_article.description}
+            slug={homepage.main_article.slug}
+            image={homepage.main_article.image}
+            categories={homepage.main_article.categories}
+            content={homepage.main_article.content}
+            documentId={homepage.main_article.documentId}
+            createdAt={homepage.main_article.createdAt}
+            updatedAt={homepage.main_article.updatedAt}
+            publishedAt={homepage.main_article.publishedAt}
+            dynamic_zone={homepage.main_article.dynamic_zone}
+            seo={homepage.main_article.seo}
+          />
+        </div>
         
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
 
-      </footer>
     </div>
   );
 }
