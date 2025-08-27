@@ -15,6 +15,10 @@
       "type": "string",
       "required": true
     },
+    "slug": {
+      "type": "uid",
+      "required": true
+    },
     "articles": {
       "type": "relation",
       "relation": "manyToMany",
