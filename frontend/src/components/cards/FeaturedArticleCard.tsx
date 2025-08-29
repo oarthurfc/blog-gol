@@ -7,7 +7,7 @@ import { Badge } from "../ui/badge";
 import { ArrowRight, Square, Timer } from "lucide-react";
 
 interface FeaturedArticleCardProps {
-  flex: string;
+  flex?: string;
   id: number;
   title: string;
   description: string;
@@ -40,7 +40,7 @@ export default function FeaturedArticleCard({
   image,
   categories,
   publishedAt,
-  flex,
+  flex = "row",
 }: FeaturedArticleCardProps) {
   return (
     <Card
