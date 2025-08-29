@@ -42,14 +42,14 @@ export default function ArticleCard({
   return (
     <Card className="h-fit w-full overflow-hidden rounded-sm border-card bg-card py-0 text-white">
       {image?.url && (
-        <div className="relative h-44 w-full">
+        <Link href={`/articles/${slug}`} className="relative block h-44 w-full">
           <Image
             src={strapiImage(image.url)}
             alt={image.alternativeText || title}
             fill
             className="object-cover"
           />
-        </div>
+        </Link>
       )}
       <CardContent className="flex flex-col gap-4 p-4">
         {categories && categories.length > 0 && (

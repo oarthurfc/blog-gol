@@ -47,14 +47,14 @@ export default function FeaturedArticleCard({
       className={`flex-1 flex-${flex} overflow-hidden rounded-sm border-card bg-card py-0 text-white`}
     >
       {image?.url && (
-        <div className="relative min-h-96 w-full">
+        <Link href={`/articles/${slug}`} className="relative min-h-96 w-full">
           <Image
             src={strapiImage(image.url)}
             alt={image.alternativeText || title}
             fill
-            className="object-cover"
+            className="cursor-pointer object-cover"
           />
-        </div>
+        </Link>
       )}
       <CardContent className="flex h-full flex-col justify-center gap-4 px-12 py-16">
         {categories && categories.length > 0 && (

@@ -37,7 +37,13 @@ export default async function Home() {
 
   return (
     <div className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col items-center py-10 sm:items-start">
-      <Image src={strapiImage(homepage.top_banner.image.url)} alt={""} width={1320} height={48} />
+      <Image
+        src={strapiImage(homepage.top_banner.image.url)}
+        alt={""}
+        width={1320}
+        height={48}
+        className="cursor-pointer"
+      />
 
       {/*First row */}
       <div className="grid w-full grid-cols-2 gap-6 pt-14">
@@ -132,7 +138,7 @@ export default async function Home() {
         alt={""}
         width={1320}
         height={510}
-        className="py-14"
+        className="cursor-pointer py-14"
       />
 
       {/*Apostas */}
