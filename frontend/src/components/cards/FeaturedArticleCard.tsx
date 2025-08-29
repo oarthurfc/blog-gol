@@ -7,6 +7,7 @@ import { Badge } from "../ui/badge";
 import { ArrowRight, Square, Timer } from "lucide-react";
 
 interface FeaturedArticleCardProps {
+  flex: string;
   id: number;
   title: string;
   description: string;
@@ -39,9 +40,12 @@ export default function FeaturedArticleCard({
   image,
   categories,
   publishedAt,
+  flex,
 }: FeaturedArticleCardProps) {
   return (
-    <Card className="flex-1 overflow-hidden rounded-sm border-card bg-card py-0 text-white">
+    <Card
+      className={`flex-1 flex-${flex} overflow-hidden rounded-sm border-card bg-card py-0 text-white`}
+    >
       {image?.url && (
         <div className="relative min-h-96 w-full">
           <Image
@@ -52,7 +56,7 @@ export default function FeaturedArticleCard({
           />
         </div>
       )}
-      <CardContent className="flex h-full flex-col justify-center gap-4 px-8 py-16">
+      <CardContent className="flex h-full flex-col justify-center gap-4 px-12 py-16">
         {categories && categories.length > 0 && (
           <div className="flex gap-2">
             {categories.map((categoria, index) => (
