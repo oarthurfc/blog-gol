@@ -36,11 +36,11 @@ export default async function Home() {
   console.log("Homepage", homepage);
 
   return (
-    <main className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col items-center gap-6 py-10 sm:items-start">
+    <main className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col items-center py-10 sm:items-start">
       <Image src={strapiImage(homepage.top_banner.image.url)} alt={""} width={1320} height={48} />
 
       {/*First row */}
-      <div className="grid w-full grid-cols-2 gap-6 pt-9">
+      <div className="grid w-full grid-cols-2 gap-6 pt-14">
         <FeaturedArticleCard
           id={homepage.main_article.id}
           title={homepage.main_article.title}
@@ -124,6 +124,76 @@ export default async function Home() {
             seo={homepage.main_article.seo}
           />
         ))}
+      </div>
+
+      {/*Middle banner */}
+      <Image
+        src={strapiImage(homepage.middle_banner.image.url)}
+        alt={""}
+        width={1320}
+        height={510}
+        className="py-14"
+      />
+
+      {/*Apostas */}
+      <div className="flex flex-col gap-5">
+        <h2 className="text-primary-yellow text-3xl font-bold">Apostas</h2>
+        <div className="grid grid-rows-2 gap-6">
+          <FeaturedArticleCard
+            flex="row"
+            id={homepage.main_article.id}
+            title={homepage.main_article.title}
+            description={homepage.main_article.description}
+            slug={homepage.main_article.slug}
+            image={homepage.main_article.image}
+            categories={homepage.main_article.categories}
+            content={homepage.main_article.content}
+            documentId={homepage.main_article.documentId}
+            createdAt={homepage.main_article.createdAt}
+            updatedAt={homepage.main_article.updatedAt}
+            publishedAt={homepage.main_article.publishedAt}
+            dynamic_zone={homepage.main_article.dynamic_zone}
+            seo={homepage.main_article.seo}
+          />
+          <div className="grid grid-cols-4 gap-6">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <ArticleCard
+                key={`article-${index}`}
+                id={homepage.main_article.id}
+                title={homepage.main_article.title}
+                description={homepage.main_article.description}
+                slug={homepage.main_article.slug}
+                image={homepage.main_article.image}
+                categories={homepage.main_article.categories}
+                content={homepage.main_article.content}
+                documentId={homepage.main_article.documentId}
+                createdAt={homepage.main_article.createdAt}
+                updatedAt={homepage.main_article.updatedAt}
+                publishedAt={homepage.main_article.publishedAt}
+                dynamic_zone={homepage.main_article.dynamic_zone}
+                seo={homepage.main_article.seo}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Mais lidos */}
+      <div className="flex w-full flex-col gap-5 py-14">
+        <h2 className="text-primary-yellow text-3xl font-bold">Mais lidos</h2>
+        <div className="grid grid-cols-2 grid-rows-4 gap-x-4 gap-y-2">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <div
+              key={`most-read-${index}`}
+              className="flex flex-row items-center gap-6 rounded-md border bg-card px-3 py-2"
+            >
+              <span className="text-primary-yellow text-4xl font-bold">{index + 1}</span>
+              <p className="font-bold">
+                De Gea diz que CR7 "não é normal" e destaca força de Messi
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </main>
   );
