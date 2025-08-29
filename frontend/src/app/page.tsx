@@ -89,15 +89,15 @@ export default async function Home() {
               seo={homepage.main_article.seo}
             />
           </div>
-          <div className="flex w-full flex-col rounded-sm bg-card px-4 py-5">
+          <div className="flex w-full flex-col gap-4 rounded-sm bg-card px-4 py-5">
             <h3 className="text-primary-yellow text-2xl font-bold">Últimas notícias</h3>
-            <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
+            <ul className="pb-2">
+              {Array.from({ length: 7 }).map((_, index) => (
+                <li key={index + 1} className="flex flex-col border-b py-3 font-bold">
+                  <span className="text-primary-yellow text-xs">há 58 minutos</span>
+                  {homepage.main_article.title}
+                </li>
+              ))}
             </ul>
             <Button>Ver mais</Button>
           </div>
@@ -105,7 +105,7 @@ export default async function Home() {
       </div>
 
       {/*Second row */}
-      <div className="grid w-full grid-cols-4 grid-rows-2 gap-6">
+      <div className="grid w-full grid-cols-4 grid-rows-2 gap-6 pt-6">
         {Array.from({ length: 8 }).map((_, index) => (
           <ArticleCard
             key={`article-${index}`}
