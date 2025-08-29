@@ -2,11 +2,11 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { strapiImage } from "@/lib/strapi/strapiImage";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "../ui/badge";
 import { Square, Timer } from "lucide-react";
 
-interface FeaturedArticleCardProps {
+interface ArticleCardProps {
   id: number;
   title: string;
   description: string;
@@ -34,12 +34,11 @@ interface FeaturedArticleCardProps {
 
 export default function ArticleCard({
   title,
-  description,
   slug,
   image,
   categories,
   publishedAt,
-}: FeaturedArticleCardProps) {
+}: ArticleCardProps) {
   return (
     <Card className="h-fit w-full overflow-hidden rounded-sm border-card bg-card py-0 text-white">
       {image?.url && (
