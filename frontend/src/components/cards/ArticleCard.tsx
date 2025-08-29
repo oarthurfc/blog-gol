@@ -1,79 +1,89 @@
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { strapiImage } from "@/lib/strapi/strapiImage";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Badge } from "../ui/badge";
+import { Square, Timer } from "lucide-react";
 
-interface ArticleCardProps {
-  id: string;
+interface FeaturedArticleCardProps {
+  id: number;
   title: string;
-  excerpt: string;
+  description: string;
   slug: string;
-  coverImage?: string;
-  category?: {
+  image?: {
+    id: number;
+    name: string;
+    alternativeText?: string | null;
+    caption?: string | null;
+    url: string;
+  };
+  categories?: Array<{
+    id: number;
     name: string;
     slug: string;
-  };
+  }>;
+  content?: Array<unknown>;
+  documentId: string;
+  createdAt: string;
+  updatedAt: string;
   publishedAt: string;
+  dynamic_zone?: Array<unknown>;
+  seo?: unknown;
 }
 
 export default function ArticleCard({
   title,
-  excerpt,
+  description,
   slug,
-  coverImage,
-  category,
-  publishedAt
-}: ArticleCardProps) {
+  image,
+  categories,
+  publishedAt,
+}: FeaturedArticleCardProps) {
   return (
-    <div className="bg-white rounded-lg shadow overflow-hidden">
-      {/* Imagem do artigo */}
-      {coverImage && (
-        <div className="relative h-48 w-full">
+    <Card className="h-fit w-full overflow-hidden rounded-sm border-card bg-card py-0 text-white">
+      {image?.url && (
+        <div className="relative h-44 w-full">
           <Image
-            src={coverImage || 'https://via.placeholder.com/400x200'}
-            alt={title}
+            src={strapiImage(image.url)}
+            alt={image.alternativeText || title}
             fill
-            sizes="(max-width: 768px) 100vw, 33vw"
             className="object-cover"
           />
         </div>
       )}
-      
-      <div className="p-5">
-        {/* Categoria */}
-        {category && (
-          <Link 
-            href={`/categories/${category.slug}`}
-            className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded mb-2"
-          >
-            {category.name}
-          </Link>
+      <CardContent className="flex flex-col gap-4 p-4">
+        {categories && categories.length > 0 && (
+          <div className="flex gap-2">
+            {categories.map((categoria, index) => (
+              <Link
+                key={categoria.id}
+                className="flex flex-row items-center gap-2"
+                href={`/categorias/${categoria.slug}`}
+              >
+                <Badge className="text-background">{categoria.name}</Badge>
+                {index < categories.length - 1 && <Square width={20} height={2} />}
+              </Link>
+            ))}
+          </div>
         )}
-        
-        {/* Título */}
-        <Link href={`/articles/${slug}`}>
-          <h3 className="text-xl font-bold mb-2 hover:text-blue-600">{title}</h3>
-        </Link>
-        
-        {/* Resumo */}
-        <p className="text-gray-600 mb-4 line-clamp-3">{excerpt}</p>
-        
-        {/* Metadados */}
-        <div className="text-sm text-gray-500">
-          {new Date(publishedAt).toLocaleDateString('pt-BR', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
+        <CardHeader className="p-0">
+          <CardTitle>
+            <Link className="text-lg" href={`/articles/${slug}`}>
+              {title}
+            </Link>
+          </CardTitle>
+        </CardHeader>
+
+        <div className="flex flex-row items-center gap-1 text-xs font-bold text-secondary-foreground">
+          <Timer width={14} />
+          {new Date(publishedAt).toLocaleDateString("pt-BR", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
           })}
         </div>
-        
-        {/* Link "Ler mais" */}
-        <Link 
-          href={`/articles/${slug}`}
-          className="inline-block mt-4 text-blue-600 hover:underline font-medium"
-        >
-          Ler mais
-        </Link>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

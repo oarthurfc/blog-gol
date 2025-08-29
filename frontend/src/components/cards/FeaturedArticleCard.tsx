@@ -43,7 +43,7 @@ export default function FeaturedArticleCard({
   return (
     <Card className="flex-1 overflow-hidden rounded-sm border-card bg-card py-0 text-white">
       {image?.url && (
-        <div className="relative h-96 w-full">
+        <div className="relative min-h-96 w-full">
           <Image
             src={strapiImage(image.url)}
             alt={image.alternativeText || title}
@@ -52,7 +52,7 @@ export default function FeaturedArticleCard({
           />
         </div>
       )}
-      <CardContent className="flex flex-col gap-4 px-8 py-16">
+      <CardContent className="flex h-full flex-col justify-center gap-4 px-8 py-16">
         {categories && categories.length > 0 && (
           <div className="flex gap-2">
             {categories.map((categoria, index) => (
@@ -76,16 +76,18 @@ export default function FeaturedArticleCard({
           <CardDescription className="text-xl text-card-foreground">{description}</CardDescription>
         </CardHeader>
 
-        <div className="flex flex-row items-center gap-1 text-xs text-secondary-foreground">
-          <Timer width={14} />
-          {new Date(publishedAt).toLocaleDateString("pt-BR", {
-            day: "numeric",
-            month: "short",
-            year: "numeric",
-          })}
+        <div className="flex flex-row items-center gap-1 text-xs font-bold text-secondary-foreground">
+          <div className="flex flex-row items-center gap-1">
+            <Timer width={14} />
+            {new Date(publishedAt).toLocaleDateString("pt-BR", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })}
+          </div>
 
           <div className="flex flex-row items-center gap-1 pl-2">
-            <Link className="font-bold text-foreground" href={`/articles/${slug}`}>
+            <Link className="text-sm text-foreground" href={`/articles/${slug}`}>
               Todos os detalhes
             </Link>
             <ArrowRight className="text-primary-yellow" width={14} />
