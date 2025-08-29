@@ -40,7 +40,7 @@ export default function FeaturedArticleCard({
   image,
   categories,
   publishedAt,
-  flex = "row",
+  flex = "column",
 }: FeaturedArticleCardProps) {
   return (
     <Card
