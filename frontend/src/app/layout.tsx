@@ -4,6 +4,7 @@ import "./globals.css";
 import fetchContentType from "@/lib/strapi/fetchContentType";
 import { generateMetadataObject } from "@/lib/metadata";
 import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
 
 const interSans = Inter({
   variable: "--font-inter-sans",
@@ -17,12 +18,12 @@ export async function generateMetadata({
   params: { locale: string; slug: string };
 }): Promise<Metadata> {
   const pageData = await fetchContentType(
-    'global',
+    "global",
     {
       filters: { locale: params.locale },
-      populate: 'seo.metaImage',
+      populate: "seo.metaImage",
     },
-    true
+    true,
   );
 
   const seo = pageData?.seo;
@@ -35,28 +36,29 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const pageData = await fetchContentType(
-    'global',
+    "global",
     {
       populate: {
-        navbar: { 
-          populate: ['logo', 'right_navbar_items']
+        navbar: {
+          populate: ["logo", "right_navbar_items"],
         },
-      }
+        footer: {
+          populate: ["logo", "internal_links", "policy_links"],
+        },
+      },
     },
-    true
+    true,
   );
 
   console.log("Layout data:", pageData);
 
   return (
     <html lang="pt-BR">
-      <body
-        className={`${interSans.variable} antialiased`}
-      >
-        <Navbar data={pageData?.navbar || null}/>
-        {children}
+      <body className={`${interSans.variable} flex min-h-screen flex-col antialiased`}>
+        <Navbar data={pageData?.navbar || null} />
+        <main className="flex-grow">{children}</main>
+        <Footer data={pageData?.footer || null} />
       </body>
     </html>
   );

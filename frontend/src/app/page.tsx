@@ -36,7 +36,7 @@ export default async function Home() {
   console.log("Homepage", homepage);
 
   return (
-    <main className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col items-center py-10 sm:items-start">
+    <div className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col items-center py-10 sm:items-start">
       <Image src={strapiImage(homepage.top_banner.image.url)} alt={""} width={1320} height={48} />
 
       {/*First row */}
@@ -195,6 +195,6 @@ export default async function Home() {
           ))}
         </div>
       </div>
-    </main>
+    </div>
   );
 }
