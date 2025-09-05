@@ -47,7 +47,7 @@ export default function FeaturedArticleCard({
       className={`flex-1 flex-${flex} overflow-hidden rounded-sm border-card bg-card py-0 text-white`}
     >
       {image?.url && (
-        <Link href={`/articles/${slug}`} className="relative min-h-96 w-full">
+        <Link href={`/articles/${slug}`} className="relative min-h-96 w-full min-w-[50%]">
           <Image
             src={strapiImage(image.url)}
             alt={image.alternativeText || title}
@@ -77,7 +77,7 @@ export default function FeaturedArticleCard({
               {title}
             </Link>
           </CardTitle>
-          <CardDescription className="text-xl text-card-foreground">{description}</CardDescription>
+          <CardDescription className="text-card-foreground text-xl">{description}</CardDescription>
         </CardHeader>
 
         <div className="flex flex-row items-center gap-1 text-xs font-bold text-secondary-foreground">
