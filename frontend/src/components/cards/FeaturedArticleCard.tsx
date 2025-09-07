@@ -44,7 +44,7 @@ export default function FeaturedArticleCard({
 }: FeaturedArticleCardProps) {
   return (
     <Card
-      className={`flex-1 flex-${flex} overflow-hidden rounded-sm border-card bg-card py-0 text-white`}
+      className={`flex-1 flex-${flex} overflow-hidden rounded-lg border-card bg-card py-0 text-white`}
     >
       {image?.url && (
         <Link href={`/articles/${slug}`} className="relative min-h-96 w-full min-w-[50%]">
