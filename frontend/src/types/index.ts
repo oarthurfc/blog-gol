@@ -3,34 +3,10 @@ export interface StrapiImage {
   name: string;
   alternativeText?: string;
   caption?: string;
+  url: string;
   width: number;
   height: number;
-  formats?: {
-    thumbnail: ImageFormat;
-    small: ImageFormat;
-    medium: ImageFormat;
-    large: ImageFormat;
-  };
-  hash: string;
-  ext: string;
-  mime: string;
-  size: number;
-  url: string;
-  previewUrl?: string;
   provider: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface ImageFormat {
-  name: string;
-  hash: string;
-  ext: string;
-  mime: string;
-  width: number;
-  height: number;
-  size: number;
-  url: string;
 }
 
 export interface StrapiResponse<T> {

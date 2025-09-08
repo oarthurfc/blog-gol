@@ -1,39 +1,21 @@
-import { StrapiImage, StrapiData } from '@/types';
-import { Category } from './category';
+import { StrapiImage, StrapiData } from "@/types";
+import { Category } from "./category";
+import { SEO } from "./seo";
+import { BlocksContent } from "@strapi/blocks-react-renderer";
 
 export interface Article {
+  id: number;
   title: string;
   slug: string;
-  content: string;
-  excerpt: string;
+  content: BlocksContent;
   coverImage?: {
     data: StrapiData<StrapiImage>;
   };
   category?: {
     data: StrapiData<Category>;
   };
-  author?: {
-    data: StrapiData<{
-      name: string;
-      email?: string;
-      avatar?: {
-        data: StrapiData<StrapiImage>;
-      };
-    }>;
-  };
   publishedAt: string;
-  createdAt: string;
-  updatedAt: string;
-  featured?: boolean;
-  seo?: {
-    metaTitle?: string;
-    metaDescription?: string;
-    metaImage?: {
-      data: StrapiData<StrapiImage>;
-    };
-    keywords?: string;
-    canonicalURL?: string;
-  };
+  seo?: SEO;
   relatedArticles?: {
     articles: {
       data: StrapiData<Article>[];
