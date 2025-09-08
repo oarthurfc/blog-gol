@@ -1,21 +1,25 @@
-import { fetchAPI } from '@/lib/strapi';
-import { Article } from '@/types/article';
+import fetchContentType from "@/lib/strapi/fetchContentType";
+import { Article } from "@/types/article";
 
 /**
  * Obter todos os artigos com paginação
  */
-export async function getArticles(page: number = 1, pageSize: number = 10, filters = {}) {
+export async function getArticles(
+  page: number = 1,
+  pageSize: number = 10,
+  filters = {},
+): Promise<Article[]> {
   const params = {
-    sort: ['publishedAt:desc'],
+    sort: ["publishedAt:desc"],
     populate: {
       coverImage: {
-        fields: ['url', 'width', 'height', 'alternativeText'],
+        fields: ["url", "width", "height", "alternativeText"],
       },
       category: {
-        populate: ['name', 'slug'],
+        populate: ["name", "slug"],
       },
       author: {
-        populate: ['name', 'avatar'],
+        populate: ["name", "avatar"],
       },
     },
     pagination: {
@@ -25,83 +29,31 @@ export async function getArticles(page: number = 1, pageSize: number = 10, filte
     filters,
   };
 
-  const response = await fetchAPI('/api/articles', params);
-  return response;
-}
-
-/**
- * Obter artigos em destaque
- */
-export async function getFeaturedArticles(limit: number = 3) {
-  const params = {
-    filters: {
-      featured: {
-        $eq: true,
-      },
-    },
-    sort: ['publishedAt:desc'],
-    pagination: {
-      limit,
-    },
-    populate: {
-      coverImage: {
-        fields: ['url', 'width', 'height', 'alternativeText'],
-      },
-      category: {
-        populate: ['name', 'slug'],
-      },
-      author: {
-        populate: ['name', 'avatar'],
-      },
-    },
-  };
-
-  const response = await fetchAPI('/api/articles', params);
-  return response;
+  const response = await fetchContentType("articles", params);
+  return response?.data ?? [];
 }
 
 /**
  * Obter um artigo por slug
  */
-export async function getArticleBySlug(slug: string) {
+export async function getArticleBySlug(slug: string): Promise<Article> {
   const params = {
-    filters: {
-      slug: {
-        $eq: slug,
-      },
-    },
+    filters: { slug: { $eq: slug } },
     populate: {
-      coverImage: {
-        fields: ['url', 'width', 'height', 'alternativeText'],
-      },
-      category: {
-        populate: ['name', 'slug'],
-      },
-      author: {
-        populate: ['name', 'avatar'],
-      },
+      image: { fields: ["url", "width", "height", "alternativeText"] },
+      categories: true,
+      //author: { populate: ["name", "avatar"] },
       seo: {
-        populate: '*',
-      },
-      relatedArticles: {
         populate: {
-          articles: {
-            populate: {
-              coverImage: {
-                fields: ['url', 'width', 'height', 'alternativeText'],
-              },
-              category: {
-                populate: ['name', 'slug'],
-              },
-            },
-          },
+          openGraph: { populate: "ogImage" },
+          metaImage: true,
         },
       },
     },
   };
 
-  const response = await fetchAPI('/api/articles', params);
-  return response.data?.[0] || null;
+  const response = await fetchContentType("articles", params, true);
+  return response as Article;
 }
 
 /**
@@ -124,14 +76,14 @@ export async function getRelatedArticles(categoryId: number, articleId: string, 
     },
     populate: {
       coverImage: {
-        fields: ['url', 'width', 'height', 'alternativeText'],
+        fields: ["url", "width", "height", "alternativeText"],
       },
       category: {
-        populate: ['name', 'slug'],
+        populate: ["name", "slug"],
       },
     },
   };
 
-  const response = await fetchAPI('/api/articles', params);
-  return response;
+  const response = await fetchContentType("articles", params);
+  return response?.data ?? [];
 }
