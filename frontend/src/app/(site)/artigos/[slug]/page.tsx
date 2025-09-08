@@ -2,6 +2,13 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import BlockRendererClient from "@/components/BlockRenderClient";
+import { getArticleBySlug } from "@/services/articles";
+import { BlocksContent } from "@strapi/blocks-react-renderer";
+import { formatDate } from "@/lib/helpers";
+import { Badge } from "@/components/ui/badge";
+import { Square } from "lucide-react";
+import { Category } from "@/types/category";
 
 interface ArticlePageProps {
   params: {
@@ -9,10 +16,15 @@ interface ArticlePageProps {
   };
 }
 
-export default function ArticlePage({ params }: ArticlePageProps) {
+export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = params;
 
-  // Aqui você irá buscar os dados do artigo com base no slug
+  const artigo = await getArticleBySlug(slug);
+  console.log("ARTIGO", artigo);
+
+  const content: BlocksContent = artigo.content;
+  console.log("CONTENT", content);
+  const categories: Category[] | undefined = artigo.categories;
 
   return (
     <article className="container mx-auto px-4 py-8">
@@ -23,7 +35,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
             Home
           </Link>{" "}
           &gt;
-          <Link href="/articles" className="hover:underline">
+          <Link href="/artigos" className="hover:underline">
             {" "}
             Artigos
           </Link>{" "}
@@ -34,15 +46,25 @@ export default function ArticlePage({ params }: ArticlePageProps) {
           {/* Article content */}
           <div className="flex w-3/4 flex-col rounded-lg bg-card px-14 py-12">
             {/* Título e metadados */}
-            <h1 className="mb-4 text-4xl font-bold">Título do Artigo: {slug}</h1>
             <div className="mb-8 flex items-center text-sm text-gray-600">
-              <span>Por Autor</span>
-              <span className="mx-2">•</span>
-              <span>10 de Agosto, 2023</span>
-              <span className="mx-2">•</span>
-              <span>Categoria</span>
+              {categories && categories.length > 0 && (
+                <div className="flex gap-2">
+                  {categories.map((categoria, index) => (
+                    <Link
+                      key={categoria.id}
+                      className="flex flex-row items-center gap-2"
+                      href={`/categorias/${categoria.slug}`}
+                    >
+                      <Badge className="text-background">{categoria.name}</Badge>
+                      {index < categories.length - 1 && <Square width={20} height={2} />}
+                    </Link>
+                  ))}
+                </div>
+              )}
+              <span className="pl-2">{formatDate(artigo.publishedAt)}</span>
             </div>
 
+            <BlockRendererClient content={content} />
             {/* Imagem destacada */}
             <div className="mb-8">
               <Image
