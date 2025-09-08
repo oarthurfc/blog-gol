@@ -15,7 +15,7 @@ export default function ArticleCard(props: Article) {
   return (
     <Card className="h-fit w-full overflow-hidden rounded-sm border-card bg-card py-0 text-white">
       {image?.url && (
-        <Link href={`/articles/${slug}`} className="relative block h-44 w-full">
+        <Link href={`/artigos/${slug}`} className="relative block h-44 w-full">
           <Image
             loader={cloudinaryLoader}
             src={image.url}
@@ -42,7 +42,7 @@ export default function ArticleCard(props: Article) {
         )}
         <CardHeader className="p-0">
           <CardTitle>
-            <Link className="text-lg" href={`/articles/${slug}`}>
+            <Link className="text-lg" href={`/artigos/${slug}`}>
               {title}
             </Link>
           </CardTitle>

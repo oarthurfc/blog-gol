@@ -17,7 +17,7 @@ export default function FeaturedArticleCard(props: Article) {
       className={`flex-1 flex-${flex} overflow-hidden rounded-lg border-card bg-card py-0 text-white`}
     >
       {image?.url && (
-        <Link href={`/articles/${slug}`} className="relative min-h-96 w-full min-w-[50%]">
+        <Link href={`/artigos/${slug}`} className="relative min-h-96 w-full min-w-[50%]">
           <Image
             loader={cloudinaryLoader}
             src={image.url}
@@ -44,7 +44,7 @@ export default function FeaturedArticleCard(props: Article) {
         )}
         <CardHeader className="p-0">
           <CardTitle>
-            <Link className="text-3xl" href={`/articles/${slug}`}>
+            <Link className="text-3xl" href={`/artigos/${slug}`}>
               {title}
             </Link>
           </CardTitle>
@@ -62,7 +62,7 @@ export default function FeaturedArticleCard(props: Article) {
           </div>
 
           <div className="flex flex-row items-center gap-1 pl-2">
-            <Link className="text-sm text-foreground" href={`/articles/${slug}`}>
+            <Link className="text-sm text-foreground" href={`/artigos/${slug}`}>
               Todos os detalhes
             </Link>
             <ArrowRight className="text-primary-yellow" width={14} />
