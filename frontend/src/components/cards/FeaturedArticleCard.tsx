@@ -1,47 +1,17 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { strapiImage } from "@/lib/strapi/strapiImage";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "../ui/badge";
 import { ArrowRight, Square, Timer } from "lucide-react";
+import cloudinaryLoader from "@/lib/cloudinary";
+import { Article } from "@/types/article";
 
-interface FeaturedArticleCardProps {
-  flex?: string;
-  id: number;
-  title: string;
-  description: string;
-  slug: string;
-  image?: {
-    id: number;
-    name: string;
-    alternativeText?: string | null;
-    caption?: string | null;
-    url: string;
-  };
-  categories?: Array<{
-    id: number;
-    name: string;
-    slug: string;
-  }>;
-  content?: Array<unknown>;
-  documentId: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  dynamic_zone?: Array<unknown>;
-  seo?: unknown;
-}
+export default function FeaturedArticleCard(props: Article) {
+  const { title, description, slug, image, categories, publishedAt, flex = "column" } = props;
 
-export default function FeaturedArticleCard({
-  title,
-  description,
-  slug,
-  image,
-  categories,
-  publishedAt,
-  flex = "column",
-}: FeaturedArticleCardProps) {
   return (
     <Card
       className={`flex-1 flex-${flex} overflow-hidden rounded-lg border-card bg-card py-0 text-white`}
@@ -49,7 +19,8 @@ export default function FeaturedArticleCard({
       {image?.url && (
         <Link href={`/articles/${slug}`} className="relative min-h-96 w-full min-w-[50%]">
           <Image
-            src={strapiImage(image.url)}
+            loader={cloudinaryLoader}
+            src={image.url}
             alt={image.alternativeText || title}
             fill
             className="cursor-pointer object-cover"

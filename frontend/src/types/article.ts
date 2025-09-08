@@ -5,15 +5,13 @@ import { BlocksContent } from "@strapi/blocks-react-renderer";
 
 export interface Article {
   id: number;
+  flex?: "row" | "column";
   title: string;
+  description?: string;
   slug: string;
   content: BlocksContent;
-  coverImage?: {
-    data: StrapiData<StrapiImage>;
-  };
-  category?: {
-    data: StrapiData<Category>;
-  };
+  image?: StrapiImage;
+  categories?: Category[];
   publishedAt: string;
   seo?: SEO;
   relatedArticles?: {

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Footer as FooterType } from "@/types/footer";
-import { strapiImage } from "@/lib/strapi/strapiImage";
+import cloudinaryLoader from "@/lib/cloudinary";
 
 interface FooterProps {
   data: FooterType;
@@ -21,7 +21,13 @@ export function Footer({ data, className }: FooterProps) {
           {/* Logo e descrição */}
           <div className="flex flex-col space-y-4">
             {data?.logo && (
-              <Image src={strapiImage(logo.url)} width={90} height={30} alt="Logo Gol a Gol" />
+              <Image
+                loader={cloudinaryLoader}
+                src={logo.url}
+                width={90}
+                height={30}
+                alt="Logo Gol a Gol"
+              />
             )}
             {description && <p className="text-muted-foreground">{description}</p>}
           </div>
@@ -36,7 +42,7 @@ export function Footer({ data, className }: FooterProps) {
                     <Link
                       href={link.URL}
                       target={link.target || "_self"}
-                      className="hover:text-primary-yellow text-muted-foreground transition-colors"
+                      className="text-muted-foreground transition-colors hover:text-primary-yellow"
                     >
                       {link.text}
                     </Link>
@@ -58,7 +64,7 @@ export function Footer({ data, className }: FooterProps) {
                     <Link
                       href={link.URL}
                       target={link.target || "_self"}
-                      className="hover:text-primary-yellow text-muted-foreground transition-colors"
+                      className="text-muted-foreground transition-colors hover:text-primary-yellow"
                     >
                       {link.text}
                     </Link>

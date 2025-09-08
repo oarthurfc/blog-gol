@@ -1,50 +1,24 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { strapiImage } from "@/lib/strapi/strapiImage";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "../ui/badge";
 import { Square, Timer } from "lucide-react";
+import cloudinaryLoader from "@/lib/cloudinary";
+import { Article } from "@/types/article";
 
-interface ArticleCardProps {
-  id: number;
-  title: string;
-  description: string;
-  slug: string;
-  image?: {
-    id: number;
-    name: string;
-    alternativeText?: string | null;
-    caption?: string | null;
-    url: string;
-  };
-  categories?: Array<{
-    id: number;
-    name: string;
-    slug: string;
-  }>;
-  content?: Array<unknown>;
-  documentId: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  dynamic_zone?: Array<unknown>;
-  seo?: unknown;
-}
+export default function ArticleCard(props: Article) {
+  const { title, slug, image, categories, publishedAt } = props;
 
-export default function ArticleCard({
-  title,
-  slug,
-  image,
-  categories,
-  publishedAt,
-}: ArticleCardProps) {
   return (
     <Card className="h-fit w-full overflow-hidden rounded-sm border-card bg-card py-0 text-white">
       {image?.url && (
         <Link href={`/articles/${slug}`} className="relative block h-44 w-full">
           <Image
-            src={strapiImage(image.url)}
+            loader={cloudinaryLoader}
+            src={image.url}
             alt={image.alternativeText || title}
             fill
             className="object-cover"
