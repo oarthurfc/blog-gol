@@ -11,13 +11,13 @@ import { Square } from "lucide-react";
 import { Category } from "@/types/category";
 
 interface ArticlePageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
-  const { slug } = params;
+  const { slug } = await params;
 
   const artigo = await getArticleBySlug(slug);
   console.log("ARTIGO", artigo);
