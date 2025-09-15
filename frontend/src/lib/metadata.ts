@@ -1,17 +1,19 @@
-export function generateMetadataObject(seo: any = {}) {
+import { SEO } from "@/types/seo";
+
+export function generateMetadataObject(seo: SEO) {
   return {
-    title: seo.metaTitle || seo.title || "Default Title",
+    title: seo.metaTitle || "Default Title",
     description: seo.metaDescription || "Default Description",
     openGraph: {
-      title: seo.ogTitle || seo.metaTitle,
-      description: seo.ogDescription || seo.metaDescription,
-      images: seo.metaImage ? [{ url: seo.metaImage.url }] : [],
+      title: seo.openGraph?.ogTitle || "Default OgTitle",
+      description: seo.openGraph?.ogDescription || "Default Description",
+      images: seo.openGraph?.ogImage ? [{ url: seo.openGraph.ogImage.url }] : [],
     },
     twitter: {
-      card: seo.twitterCard || "summary_large_image",
-      title: seo.twitterTitle || seo.metaTitle,
-      description: seo.twitterDescription || seo.metaDescription,
-      images: seo.twitterImage ? [{ url: seo.twitterImage }] : [],
+      card: seo.openGraph?.ogImage || "summary_large_image",
+      title: seo.metaTitle || "Default Title",
+      description: seo.metaDescription || "Default Description",
+      images: seo.openGraph?.ogImage ? [{ url: seo.openGraph?.ogImage }] : [],
     },
   };
 }
