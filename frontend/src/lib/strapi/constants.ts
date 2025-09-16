@@ -2,6 +2,9 @@
  * Constantes e helpers para consultas do Strapi
  */
 
+// Campos mínimos para imagens (quando não precisa de todos os dados)
+export const IMAGE_FIELDS_MINIMAL = ["url", "alternativeText", "width", "height"] as const;
+
 // Campos padrão para imagens do Strapi
 export const IMAGE_FIELDS = [
   "id",
@@ -27,6 +30,11 @@ export const SEO_FIELDS = [
 // Helper para populate de imagem completa
 export const populateImage = () => ({
   fields: IMAGE_FIELDS,
+});
+
+// Helper para populate de imagem mínima
+export const populateImageMinimal = () => ({
+  fields: IMAGE_FIELDS_MINIMAL,
 });
 
 // Helper para populate de SEO completo
