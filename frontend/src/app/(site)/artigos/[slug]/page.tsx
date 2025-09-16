@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import BlockRendererClient from "@/components/BlockRenderClient";
 import { getArticleBySlug } from "@/services/articles";
@@ -21,6 +22,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   const artigo = await getArticleBySlug(slug);
   console.log("ARTIGO", artigo);
+
+  if (!artigo) {
+    notFound();
+  }
 
   const content: BlocksContent = artigo.content;
   console.log("CONTENT", content);
