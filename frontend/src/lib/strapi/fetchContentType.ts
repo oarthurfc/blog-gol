@@ -1,67 +1,87 @@
-import { draftMode } from 'next/headers';
-import qs from 'qs';
+import { draftMode } from "next/headers";
+import qs from "qs";
+import { StrapiApiResponse, StrapiQueryParams } from "@/types";
 
 /**
  * Fetches data for a specified Strapi content type.
  *
  * @param {string} contentType - The type of content to fetch from Strapi.
- * @param {string} params - Query parameters to append to the API request.
- * @return {Promise<object>} The fetched data.
+ * @param {StrapiQueryParams} params - Query parameters to append to the API request.
+ * @param {boolean} spreadData - Whether to spread the data from the response.
+ * @return {Promise<T | StrapiApiResponse<T>>} The fetched data.
  */
 
-interface StrapiData {
-  id: number;
-  [key: string]: any; // Allow for any additional fields
-}
-
-interface StrapiResponse {
-  data: StrapiData | StrapiData[];
-}
-
-export function spreadStrapiData(data: StrapiResponse): StrapiData | null {
-  if (Array.isArray(data.data) && data.data.length > 0) {
-    return data.data[0];
-  }
-  if (!Array.isArray(data.data)) {
-    return data.data;
+export function spreadStrapiData<T>(data: Record<string, unknown>): T | null {
+  if (data && data.data) {
+    if (Array.isArray(data.data) && data.data.length > 0) {
+      return data.data[0] as T;
+    }
+    if (!Array.isArray(data.data)) {
+      return data.data as T;
+    }
   }
   return null;
 }
 
-export default async function fetchContentType(
+// Overloads para melhor inferência de tipos
+export default function fetchContentType<T>(
   contentType: string,
-  params: Record<string, unknown> = {},
-  spreadData?: boolean
-): Promise<any> {
+  params?: StrapiQueryParams,
+): Promise<StrapiApiResponse<T>>;
+
+export default function fetchContentType<T>(
+  contentType: string,
+  params: StrapiQueryParams,
+  spreadData: true,
+): Promise<T | null>;
+
+export default async function fetchContentType<T>(
+  contentType: string,
+  params: StrapiQueryParams = {},
+  spreadData?: boolean,
+): Promise<StrapiApiResponse<T> | T | null> {
   const { isEnabled } = await draftMode();
 
   try {
     const queryParams = { ...params };
 
     if (isEnabled) {
-      queryParams.status = 'draft';
+      queryParams.status = "draft";
     }
 
     // Construct the full URL for the API request
     const url = new URL(`api/${contentType}`, process.env.NEXT_PUBLIC_STRAPI_API_URL);
-    console.log("URL", url)
-    console.log(`Fetching Strapi content from ${url.href} with params:`, queryParams);
 
-    // Perform the fetch request with the provided query parameters
-    const response = await fetch(`${url.href}?${qs.stringify(queryParams)}`, {
-      method: 'GET',
-      cache: 'no-store',
+    const queryString = qs.stringify(queryParams, {
+      encode: false,
+      arrayFormat: "brackets",
+    });
+    const finalUrl = `${url.href}?${queryString}`;
+
+    console.log("Fetching Strapi URL:", finalUrl);
+    const response = await fetch(finalUrl, {
+      method: "GET",
+      cache: "no-store",
     });
 
     if (!response.ok) {
       throw new Error(
-        `Failed to fetch data from Strapi (url=${url.toString()}, status=${response.status})`
+        `Failed to fetch data from Strapi (url=${url.toString()}, status=${response.status})`,
       );
     }
-    const jsonData: StrapiResponse = await response.json();
-    return spreadData ? spreadStrapiData(jsonData) : jsonData;
+
+    const jsonData = await response.json();
+
+    if (spreadData) {
+      const spreaded = spreadStrapiData<T>(jsonData);
+
+      return spreaded;
+    }
+
+    return jsonData as StrapiApiResponse<T>;
   } catch (error) {
     // Log any errors that occur during the fetch process
-    console.error('FetchContentTypeError', error);
+    console.error("FetchContentTypeError", error);
+    return spreadData ? null : ({} as StrapiApiResponse<T>);
   }
 }
