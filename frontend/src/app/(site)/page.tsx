@@ -4,10 +4,12 @@ import { Button } from "@/components/ui/button";
 import cloudinaryLoader from "@/lib/cloudinary";
 import { generateMetadataObject } from "@/lib/metadata";
 import fetchContentType from "@/lib/strapi/fetchContentType";
+import { getHomepage } from "@/services/homepage";
+import { HomePageData } from "@/types/home";
 import Image from "next/image";
 
 export async function generateMetadata() {
-  const homepage = await fetchContentType(
+  const homepage = await fetchContentType<HomePageData>(
     "home",
     {
       populate: {
@@ -20,43 +22,14 @@ export async function generateMetadata() {
 }
 
 export default async function Home() {
-  const home = await fetchContentType(
-    "home",
-    {
-      populate: {
-        top_banner: { populate: "*" },
-        main_article: {
-          populate: {
-            image: true,
-            categories: true,
-            seo: {
-              populate: {
-                openGraph: { populate: "ogImage" },
-                metaImage: true,
-              },
-            },
-          },
-        },
-        middle_banner: { populate: "*" },
-        bet_main_article: {
-          populate: {
-            image: true,
-            categories: true,
-            seo: {
-              populate: {
-                openGraph: { populate: "ogImage" },
-                metaImage: true,
-              },
-            },
-          },
-        },
-      },
-    },
-    true,
-  );
+  const home = await getHomepage();
+  console.log("Homepage", home);
+
+  if (!home) {
+    return <div>Erro ao carregar página inicial</div>;
+  }
 
   const mainArticle = home.main_article;
-  console.log("MainArticle", mainArticle);
   const betArticle = home.bet_main_article;
   const topBanner = home.top_banner;
   const middleBanner = home.middle_banner;

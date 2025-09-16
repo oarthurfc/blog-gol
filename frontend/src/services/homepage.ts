@@ -1,44 +1,41 @@
-import { fetchAPI } from '@/lib/strapi';
+import fetchContentType from "@/lib/strapi/fetchContentType";
+import { HomePageData } from "@/types/home";
+import { StrapiQueryParams } from "@/types";
+import { populateImage, populateSEO, populateCategory } from "@/lib/strapi/constants";
 
 /**
  * Obter dados da página inicial
  */
-export async function getHomepage() {
-  const params = {
+export async function getHomepage(): Promise<HomePageData | null> {
+  const params: StrapiQueryParams = {
     populate: {
-      banners: {
-        populate: '*',
-      },
-      featuredArticles: {
+      top_banner: {
         populate: {
-          articles: {
-            populate: {
-              coverImage: {
-                fields: ['url', 'width', 'height', 'alternativeText'],
-              },
-              category: {
-                populate: ['name', 'slug'],
-              },
-              author: {
-                populate: ['name', 'avatar'],
-              },
-            },
-          },
+          image: populateImage(),
         },
       },
-      testimonials: {
+      main_article: {
         populate: {
-          testimonials: {
-            populate: ['avatar'],
-          },
+          image: populateImage(),
+          categories: populateCategory(),
+          seo: populateSEO(),
         },
       },
-      seo: {
-        populate: '*',
+      middle_banner: {
+        populate: {
+          image: populateImage(),
+        },
+      },
+      bet_main_article: {
+        populate: {
+          image: populateImage(),
+          categories: populateCategory(),
+          seo: populateSEO(),
+        },
       },
     },
   };
 
-  const response = await fetchAPI('/api/home', params);
-  return response.data;
+  const response = await fetchContentType<HomePageData>("home", params, true);
+  return response;
 }
