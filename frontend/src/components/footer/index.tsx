@@ -7,12 +7,14 @@ import { Footer as FooterType } from "@/types/footer";
 import cloudinaryLoader from "@/lib/cloudinary";
 
 interface FooterProps {
-  data: FooterType;
+  data: FooterType | null;
   className?: string;
 }
 
 export function Footer({ data, className }: FooterProps) {
-  const { logo, description, copyright, internal_links = [], policy_links = [] } = data || {};
+  if (!data) return null;
+
+  const { logo, description, copyright, internal_links = [], policy_links = [] } = data;
 
   return (
     <footer className={cn("bg-background text-foreground", className)}>
