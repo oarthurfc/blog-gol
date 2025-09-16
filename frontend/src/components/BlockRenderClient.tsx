@@ -6,7 +6,6 @@ import cloudinaryLoader from "@/lib/cloudinary";
 
 export default function BlockRendererClient({ content }: { readonly content: BlocksContent }) {
   if (!content) return null;
-  console.log("Content", content);
   return (
     <BlocksRenderer
       content={content}

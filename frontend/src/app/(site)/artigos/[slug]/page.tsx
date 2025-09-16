@@ -21,14 +21,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params;
 
   const artigo = await getArticleBySlug(slug);
-  console.log("ARTIGO", artigo);
 
   if (!artigo) {
     notFound();
   }
 
   const content: BlocksContent = artigo.content;
-  console.log("CONTENT", content);
   const categories: Category[] | undefined = artigo.categories;
 
   return (

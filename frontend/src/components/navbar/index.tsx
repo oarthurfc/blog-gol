@@ -18,7 +18,6 @@ type Props = {
 export function Navbar({ data }: { data: Props | null }) {
   if (!data) return null;
 
-  console.log("Data recebida no NavBar:", data);
   return (
     <div className="flex h-16 w-full flex-row items-center justify-center border-b-2 border-amber-300 bg-black">
       <div className="flex w-full max-w-[1320px] flex-row justify-between">

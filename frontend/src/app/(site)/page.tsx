@@ -23,7 +23,6 @@ export async function generateMetadata() {
 
 export default async function Home() {
   const home = await getHomepage();
-  console.log("Homepage", home);
 
   if (!home) {
     return <div>Erro ao carregar página inicial</div>;
@@ -33,8 +32,6 @@ export default async function Home() {
   const betArticle = home.bet_main_article;
   const topBanner = home.top_banner;
   const middleBanner = home.middle_banner;
-
-  console.log("Homepage", home);
 
   return (
     <div className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col items-center py-10 sm:items-start">
