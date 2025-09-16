@@ -1,37 +1,37 @@
-import { fetchAPI } from '@/lib/strapi';
+import fetchContentType from "@/lib/strapi/fetchContentType";
+import { Category } from "@/types/category";
 
 /**
  * Obter todas as categorias
  */
 export async function getCategories() {
-  const params = {
-    sort: ['name:asc'],
+  return await fetchContentType<Category[]>("categories", {
+    sort: ["name:asc"],
     populate: {
       articles: {
-        fields: ['id'],
+        fields: ["id"],
       },
     },
-  };
-
-  const response = await fetchAPI('/api/categories', params);
-  return response;
+  });
 }
 
 /**
- * Obter uma categoria por slug
+ * Obter categoria por slug
  */
 export async function getCategoryBySlug(slug: string) {
-  const params = {
+  const response = await fetchContentType("categories", {
     filters: {
       slug: {
         $eq: slug,
       },
     },
-    populate: ['name', 'description'],
-  };
+    populate: {
+      name: true,
+      description: true,
+    },
+  });
 
-  const response = await fetchAPI('/api/categories', params);
-  return response.data?.[0] || null;
+  return Array.isArray(response.data) ? response.data[0] || null : null;
 }
 
 /**
@@ -40,9 +40,9 @@ export async function getCategoryBySlug(slug: string) {
 export async function getArticlesByCategory(
   categorySlug: string,
   page: number = 1,
-  pageSize: number = 10
+  pageSize: number = 10,
 ) {
-  const params = {
+  return await fetchContentType("articles", {
     filters: {
       category: {
         slug: {
@@ -50,24 +50,21 @@ export async function getArticlesByCategory(
         },
       },
     },
-    sort: ['publishedAt:desc'],
+    sort: ["publishedAt:desc"],
     pagination: {
       page,
       pageSize,
     },
     populate: {
       coverImage: {
-        fields: ['url', 'width', 'height', 'alternativeText'],
+        fields: ["url", "width", "height", "alternativeText"],
       },
       category: {
-        populate: ['name', 'slug'],
+        populate: ["name", "slug"],
       },
       author: {
-        populate: ['name', 'avatar'],
+        populate: ["name", "avatar"],
       },
     },
-  };
-
-  const response = await fetchAPI('/api/articles', params);
-  return response;
+  });
 }
