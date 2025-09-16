@@ -1,3 +1,5 @@
+"use client";
+
 import cloudinaryLoader from "@/lib/cloudinary";
 import Image from "next/image";
 
