@@ -79,6 +79,8 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
     env_file:
       - ./frontend/.env.production
+    extra_hosts:
+      - "admin.golagolesportes.com:backend"
 
 volumes:
   mysql_data:
