@@ -14,7 +14,7 @@ const interSans = Inter({
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Blog GOL",
-    description: "Seu blog de futebol favorito",
+    description: "Seu esportivo de futebol favorito",
   };
 }
 
