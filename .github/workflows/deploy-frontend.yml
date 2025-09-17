@@ -39,4 +39,4 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/oarthurfc/qual-macbook-comprar-frontend:latest
+            ghcr.io/oarthurfc/blog-gol-frontend:latest
