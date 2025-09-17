@@ -37,5 +37,5 @@ export async function getHomepage(): Promise<HomePageData | null> {
   };
 
   const response = await fetchContentType<HomePageData>("home", params, true);
-  return response;
+  return response as HomePageData | null;
 }

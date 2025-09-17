@@ -75,5 +75,5 @@ export async function getGlobalData(): Promise<GlobalData | null> {
   };
 
   const response = await fetchContentType<GlobalData>("global", params, true);
-  return response;
+  return response as GlobalData | null;
 }

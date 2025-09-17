@@ -34,8 +34,8 @@ export async function getArticles(
 
   const response = await fetchContentType<Article>("articles", params);
 
-  // Type guard para verificar se é uma response com array
-  if ("data" in response && Array.isArray(response.data)) {
+  // Type guard para verificar se a response não é null e tem array de dados
+  if (response && "data" in response && Array.isArray(response.data)) {
     return response.data.map((item) => item.attributes || item);
   }
 
@@ -57,7 +57,13 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
   };
 
   const response = await fetchContentType<Article>("articles", params, true);
-  return response;
+
+  // Com spreadData: true, verificar se é um Article válido ou null
+  if (response && typeof response === "object" && !("data" in response)) {
+    return response as Article;
+  }
+
+  return null;
 }
 
 /**
@@ -90,8 +96,8 @@ export async function getRelatedArticles(
 
   const response = await fetchContentType<Article>("articles", params);
 
-  // Type guard para verificar se é uma response com array
-  if ("data" in response && Array.isArray(response.data)) {
+  // Type guard para verificar se a response não é null e tem array de dados
+  if (response && "data" in response && Array.isArray(response.data)) {
     return response.data.map((item) => item.attributes || item);
   }
 

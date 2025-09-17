@@ -1,11 +1,12 @@
 import fetchContentType from "@/lib/strapi/fetchContentType";
 import { Category } from "@/types/category";
+import { Article } from "@/types/article";
 
 /**
  * Obter todas as categorias
  */
 export async function getCategories() {
-  return await fetchContentType<Category[]>("categories", {
+  const response = await fetchContentType<Category>("categories", {
     sort: ["name:asc"],
     populate: {
       articles: {
@@ -13,25 +14,36 @@ export async function getCategories() {
       },
     },
   });
+
+  // Type guard para verificar se a response não é null e tem array de dados
+  if (response && "data" in response && Array.isArray(response.data)) {
+    return response.data.map((item) => item.attributes || item);
+  }
+
+  return [];
 }
 
 /**
  * Obter categoria por slug
  */
-export async function getCategoryBySlug(slug: string) {
-  const response = await fetchContentType("categories", {
-    filters: {
-      slug: {
-        $eq: slug,
+export async function getCategoryBySlug(slug: string): Promise<Category | null> {
+  const response = await fetchContentType<Category>(
+    "categories",
+    {
+      filters: {
+        slug: {
+          $eq: slug,
+        },
+      },
+      populate: {
+        name: true,
+        description: true,
       },
     },
-    populate: {
-      name: true,
-      description: true,
-    },
-  });
+    true,
+  );
 
-  return Array.isArray(response.data) ? response.data[0] || null : null;
+  return response as Category | null;
 }
 
 /**
@@ -42,7 +54,7 @@ export async function getArticlesByCategory(
   page: number = 1,
   pageSize: number = 10,
 ) {
-  return await fetchContentType("articles", {
+  const response = await fetchContentType<Article>("articles", {
     filters: {
       category: {
         slug: {
@@ -67,4 +79,11 @@ export async function getArticlesByCategory(
       },
     },
   });
+
+  // Type guard para verificar se a response não é null e tem array de dados
+  if (response && "data" in response && Array.isArray(response.data)) {
+    return response.data.map((item) => item.attributes || item);
+  }
+
+  return [];
 }

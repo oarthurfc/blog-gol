@@ -3,26 +3,13 @@ import FeaturedArticleCard from "@/components/cards/FeaturedArticleCard";
 import { Button } from "@/components/ui/button";
 import cloudinaryLoader from "@/lib/cloudinary";
 import { generateMetadataObject } from "@/lib/metadata";
-import fetchContentType from "@/lib/strapi/fetchContentType";
 import { getHomepage } from "@/services/homepage";
-import { HomePageData } from "@/types/home";
 import Image from "next/image";
-
-export async function generateMetadata() {
-  const homepage = await fetchContentType<HomePageData>(
-    "home",
-    {
-      populate: {
-        seo: { populate: "*" },
-      },
-    },
-    true,
-  );
-  return generateMetadataObject(homepage?.seo);
-}
 
 export default async function Home() {
   const home = await getHomepage();
+
+  generateMetadataObject(home?.seo);
 
   if (!home) {
     return <div>Erro ao carregar página inicial</div>;
