@@ -60,7 +60,7 @@ export default async function fetchContentType<T>(
 
     const response = await fetch(finalUrl, {
       method: "GET",
-      cache: "no-store",
+      //cache: "no-store",
     });
 
     if (!response.ok) {
