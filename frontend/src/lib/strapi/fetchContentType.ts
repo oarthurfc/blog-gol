@@ -23,17 +23,12 @@ export function spreadStrapiData<T>(data: Record<string, unknown>): T | null {
   return null;
 }
 
-// Overloads para melhor inferência de tipos
-export default function fetchContentType<T>(
-  contentType: string,
-  params?: StrapiQueryParams,
-): Promise<StrapiApiResponse<T>>;
-
-export default function fetchContentType<T>(
-  contentType: string,
-  params: StrapiQueryParams,
-  spreadData: true,
-): Promise<T | null>;
+function getStrapiBaseUrl() {
+  if (typeof window === "undefined") {
+    return process.env.STRAPI_INTERNAL_URL ?? "http://backend:1337";
+  }
+  return process.env.NEXT_PUBLIC_STRAPI_API_URL!;
+}
 
 export default async function fetchContentType<T>(
   contentType: string,
@@ -49,8 +44,8 @@ export default async function fetchContentType<T>(
       queryParams.status = "draft";
     }
 
-    // Construct the full URL for the API request
-    const url = new URL(`api/${contentType}`, process.env.NEXT_PUBLIC_STRAPI_API_URL);
+    const baseUrl = getStrapiBaseUrl();
+    const url = new URL(`api/${contentType}`, baseUrl);
 
     const queryString = qs.stringify(queryParams, {
       encode: false,
@@ -58,28 +53,22 @@ export default async function fetchContentType<T>(
     });
     const finalUrl = `${url.href}?${queryString}`;
 
-    const response = await fetch(finalUrl, {
-      method: "GET",
-      //cache: "no-store",
-    });
+    const response = await fetch(finalUrl, { method: "GET" });
 
     if (!response.ok) {
       throw new Error(
-        `Failed to fetch data from Strapi (url=${url.toString()}, status=${response.status})`,
+        `Failed to fetch data from Strapi (url=${finalUrl}, status=${response.status})`,
       );
     }
 
     const jsonData = await response.json();
 
     if (spreadData) {
-      const spreaded = spreadStrapiData<T>(jsonData);
-
-      return spreaded;
+      return spreadStrapiData<T>(jsonData);
     }
 
     return jsonData as StrapiApiResponse<T>;
   } catch (error) {
-    // Log any errors that occur during the fetch process
     console.error("FetchContentTypeError", error);
     return spreadData ? null : ({} as StrapiApiResponse<T>);
   }
