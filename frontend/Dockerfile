@@ -13,7 +13,6 @@ CMD ["npm", "run", "dev:docker"]
 FROM base AS builder
 RUN npm ci 
 COPY . .
-COPY .env.production .env.production
 RUN npm run build
 
 # Production target
