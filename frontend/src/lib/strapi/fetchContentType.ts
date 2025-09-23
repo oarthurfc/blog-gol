@@ -23,13 +23,6 @@ export function spreadStrapiData<T>(data: Record<string, unknown>): T | null {
   return null;
 }
 
-function getStrapiBaseUrl() {
-  if (typeof window === "undefined") {
-    return process.env.STRAPI_INTERNAL_URL ?? "http://backend:1337";
-  }
-  return process.env.NEXT_PUBLIC_STRAPI_API_URL!;
-}
-
 export default async function fetchContentType<T>(
   contentType: string,
   params: StrapiQueryParams = {},
@@ -44,8 +37,15 @@ export default async function fetchContentType<T>(
       queryParams.status = "draft";
     }
 
-    const baseUrl = getStrapiBaseUrl();
+    // Escolhe a URL base conforme ambiente (SSR/build ou client-side)
+    const baseUrl =
+      typeof window === "undefined"
+        ? process.env.STRAPI_INTERNAL_URL
+        : process.env.NEXT_PUBLIC_STRAPI_API_URL;
+
+    // Construct the full URL for the API request
     const url = new URL(`api/${contentType}`, baseUrl);
+    console.log("FetchContentType URL", url.href);
 
     const queryString = qs.stringify(queryParams, {
       encode: false,
@@ -67,6 +67,7 @@ export default async function fetchContentType<T>(
       return spreadStrapiData<T>(jsonData);
     }
 
+    console.log("FetchContentType Response", jsonData);
     return jsonData as StrapiApiResponse<T>;
   } catch (error) {
     console.error("FetchContentTypeError", error);
