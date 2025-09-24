@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import BlockRendererClient from "@/components/BlockRenderClient";
@@ -69,22 +68,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </div>
 
             <BlockRendererClient content={content} />
-            {/* Imagem destacada */}
-            <div className="mb-8">
-              <Image
-                src="https://placehold.co/600x400"
-                alt="Título do artigo"
-                width={800}
-                height={400}
-                className="h-auto w-full rounded-lg"
-              />
-            </div>
-
-            {/* Conteúdo do artigo */}
-            <div className="prose max-w-none">
-              {/* O conteúdo do artigo será renderizado aqui */}
-              <p>Conteúdo do artigo...</p>
-            </div>
 
             {/* Artigos relacionados */}
             <div className="mt-12">
