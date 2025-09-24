@@ -9,7 +9,7 @@ export default async function ArticlesPage() {
       <h1 className="mb-6 text-3xl font-bold">Todos os Artigos</h1>
 
       <p>Título do artigo principal:</p>
-      <p>{home?.main_article?.title}</p>
+      {home ? "Home Carregada com sucesso" : "Erro ao carregar a Home"}
 
       {/* Filtros (opcional) */}
       <div className="mb-8">
