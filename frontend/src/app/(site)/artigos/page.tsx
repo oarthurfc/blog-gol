@@ -1,15 +1,9 @@
-import { getHomepage } from "@/services/homepage";
 import React from "react";
 
 export default async function ArticlesPage() {
-  const home = await getHomepage();
-
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="mb-6 text-3xl font-bold">Todos os Artigos</h1>
-
-      <p>Título do artigo principal:</p>
-      {home ? "Home Carregada com sucesso" : "Erro ao carregar a Home"}
 
       {/* Filtros (opcional) */}
       <div className="mb-8">
