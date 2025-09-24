@@ -9,9 +9,11 @@ import { populateImage } from "@/lib/strapi/constants";
 export async function getHomepage(): Promise<HomePageData | null> {
   const params: StrapiQueryParams = {
     populate: {
-      top_banner: {
-        populate: {
-          image: populateImage(),
+      populate: {
+        top_banner: {
+          populate: {
+            image: true,
+          },
         },
       },
     },
