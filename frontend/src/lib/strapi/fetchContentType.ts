@@ -53,7 +53,10 @@ export default async function fetchContentType<T>(
     });
     const finalUrl = `${url.href}?${queryString}`;
 
-    const response = await fetch(finalUrl, { method: "GET" });
+    const response = await fetch(finalUrl, {
+      method: "GET",
+      next: { revalidate: 5 }, // Revalida a cada 3 segundos
+    });
 
     if (!response.ok) {
       throw new Error(
