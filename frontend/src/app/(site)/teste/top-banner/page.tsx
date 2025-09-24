@@ -1,10 +1,7 @@
-import { generateMetadataObject } from "@/lib/metadata";
-import { getHomepage } from "@/services/homepage-top-banner";
+import { getHomepageTopBanner } from "@/services/homepage-top-banner";
 
 export default async function Home() {
-  const home = await getHomepage();
-
-  generateMetadataObject(home?.seo);
+  const home = await getHomepageTopBanner();
 
   return (
     <div className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col items-center py-10 sm:items-start">

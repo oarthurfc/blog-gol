@@ -1,12 +1,10 @@
 import fetchContentType from "@/lib/strapi/fetchContentType";
-import { HomePageData } from "@/types/home";
 import { StrapiQueryParams } from "@/types";
-import { populateImage } from "@/lib/strapi/constants";
 
 /**
  * Obter dados da página inicial
  */
-export async function getHomepage(): Promise<HomePageData | null> {
+export async function getHomepageTopBanner() {
   const params: StrapiQueryParams = {
     populate: {
       populate: {
@@ -19,6 +17,6 @@ export async function getHomepage(): Promise<HomePageData | null> {
     },
   };
 
-  const response = await fetchContentType<HomePageData>("home", params, true);
-  return response as HomePageData | null;
+  const response = await fetchContentType("home", params, true);
+  return response;
 }
