@@ -9,135 +9,29 @@ import { populateImage, populateSEO, populateCategory } from "@/lib/strapi/const
 export async function getHomepage(): Promise<HomePageData | null> {
   const params: StrapiQueryParams = {
     populate: {
-      populate: "*", // Adicione esta linha para garantir que os dados sejam populados
+      seo: populateSEO(),
       top_banner: {
         populate: {
-          image: {
-            fields: [
-              "id",
-              "name",
-              "alternativeText",
-              "caption",
-              "url",
-              "width",
-              "height",
-              "provider",
-            ],
-          },
+          image: populateImage(),
         },
       },
       main_article: {
         populate: {
-          image: {
-            fields: [
-              "id",
-              "name",
-              "alternativeText",
-              "caption",
-              "url",
-              "width",
-              "height",
-              "provider",
-            ],
-          },
-          categories: { fields: ["name", "slug"] },
-          seo: {
-            populate: {
-              openGraph: {
-                populate: {
-                  ogImage: {
-                    fields: [
-                      "id",
-                      "name",
-                      "alternativeText",
-                      "caption",
-                      "url",
-                      "width",
-                      "height",
-                      "provider",
-                    ],
-                  },
-                },
-              },
-              metaImage: {
-                fields: [
-                  "id",
-                  "name",
-                  "alternativeText",
-                  "caption",
-                  "url",
-                  "width",
-                  "height",
-                  "provider",
-                ],
-              },
-            },
-          },
+          image: populateImage(),
+          categories: populateCategory(),
+          seo: populateSEO(),
         },
       },
       middle_banner: {
         populate: {
-          image: {
-            fields: [
-              "id",
-              "name",
-              "alternativeText",
-              "caption",
-              "url",
-              "width",
-              "height",
-              "provider",
-            ],
-          },
+          image: populateImage(),
         },
       },
       bet_main_article: {
         populate: {
-          image: {
-            fields: [
-              "id",
-              "name",
-              "alternativeText",
-              "caption",
-              "url",
-              "width",
-              "height",
-              "provider",
-            ],
-          },
-          categories: { fields: ["name", "slug"] },
-          seo: {
-            populate: {
-              openGraph: {
-                populate: {
-                  ogImage: {
-                    fields: [
-                      "id",
-                      "name",
-                      "alternativeText",
-                      "caption",
-                      "url",
-                      "width",
-                      "height",
-                      "provider",
-                    ],
-                  },
-                },
-              },
-              metaImage: {
-                fields: [
-                  "id",
-                  "name",
-                  "alternativeText",
-                  "caption",
-                  "url",
-                  "width",
-                  "height",
-                  "provider",
-                ],
-              },
-            },
-          },
+          image: populateImage(),
+          categories: populateCategory(),
+          seo: populateSEO(),
         },
       },
     },
