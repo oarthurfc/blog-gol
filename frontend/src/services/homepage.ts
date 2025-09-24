@@ -9,28 +9,135 @@ import { populateImage, populateSEO, populateCategory } from "@/lib/strapi/const
 export async function getHomepage(): Promise<HomePageData | null> {
   const params: StrapiQueryParams = {
     populate: {
+      "*": true, // pega tudo
       top_banner: {
         populate: {
-          image: populateImage(),
+          image: {
+            fields: [
+              "id",
+              "name",
+              "alternativeText",
+              "caption",
+              "url",
+              "width",
+              "height",
+              "provider",
+            ],
+          },
         },
       },
       main_article: {
         populate: {
-          image: populateImage(),
-          categories: populateCategory(),
-          seo: populateSEO(),
+          image: {
+            fields: [
+              "id",
+              "name",
+              "alternativeText",
+              "caption",
+              "url",
+              "width",
+              "height",
+              "provider",
+            ],
+          },
+          categories: { fields: ["name", "slug"] },
+          seo: {
+            populate: {
+              openGraph: {
+                populate: {
+                  ogImage: {
+                    fields: [
+                      "id",
+                      "name",
+                      "alternativeText",
+                      "caption",
+                      "url",
+                      "width",
+                      "height",
+                      "provider",
+                    ],
+                  },
+                },
+              },
+              metaImage: {
+                fields: [
+                  "id",
+                  "name",
+                  "alternativeText",
+                  "caption",
+                  "url",
+                  "width",
+                  "height",
+                  "provider",
+                ],
+              },
+            },
+          },
         },
       },
       middle_banner: {
         populate: {
-          image: populateImage(),
+          image: {
+            fields: [
+              "id",
+              "name",
+              "alternativeText",
+              "caption",
+              "url",
+              "width",
+              "height",
+              "provider",
+            ],
+          },
         },
       },
       bet_main_article: {
         populate: {
-          image: populateImage(),
-          categories: populateCategory(),
-          seo: populateSEO(),
+          image: {
+            fields: [
+              "id",
+              "name",
+              "alternativeText",
+              "caption",
+              "url",
+              "width",
+              "height",
+              "provider",
+            ],
+          },
+          categories: { fields: ["name", "slug"] },
+          seo: {
+            populate: {
+              openGraph: {
+                populate: {
+                  ogImage: {
+                    fields: [
+                      "id",
+                      "name",
+                      "alternativeText",
+                      "caption",
+                      "url",
+                      "width",
+                      "height",
+                      "provider",
+                    ],
+                  },
+                },
+              },
+              metaImage: {
+                fields: [
+                  "id",
+                  "name",
+                  "alternativeText",
+                  "caption",
+                  "url",
+                  "width",
+                  "height",
+                  "provider",
+                ],
+              },
+            },
+          },
         },
       },
     },
