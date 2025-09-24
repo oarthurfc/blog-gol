@@ -11,20 +11,16 @@ export default async function Home() {
 
   generateMetadataObject(home?.seo);
 
-  if (!home) {
-    return <div>Erro ao carregar página inicial</div>;
-  }
-
-  const mainArticle = home.main_article;
-  const betArticle = home.bet_main_article;
-  const topBanner = home.top_banner;
-  const middleBanner = home.middle_banner;
+  const mainArticle = home?.main_article;
+  const betArticle = home?.bet_main_article;
+  const topBanner = home?.top_banner;
+  const middleBanner = home?.middle_banner;
 
   return (
     <div className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col items-center py-10 sm:items-start">
       <Image
         loader={cloudinaryLoader}
-        src={topBanner.image.url}
+        src={topBanner?.image.url || ""}
         alt={""}
         width={1320}
         height={48}
@@ -33,12 +29,12 @@ export default async function Home() {
 
       {/*First row */}
       <div className="grid w-full grid-cols-2 gap-6 pt-14">
-        <FeaturedArticleCard {...mainArticle} />
+        {mainArticle && <FeaturedArticleCard {...mainArticle} />}
         <div className="grid grid-cols-2 gap-6">
           <div className="flex w-full flex-col gap-6">
-            <ArticleCard {...mainArticle} />
+            {mainArticle && <ArticleCard {...mainArticle} />}
 
-            <ArticleCard {...mainArticle} />
+            {mainArticle && <ArticleCard {...mainArticle} />}
           </div>
           <div className="flex w-full flex-col gap-4 rounded-sm bg-card px-4 py-5">
             <h3 className="text-2xl font-bold text-primary-yellow">Últimas notícias</h3>
@@ -46,7 +42,7 @@ export default async function Home() {
               {Array.from({ length: 7 }).map((_, index) => (
                 <li key={index + 1} className="flex flex-col border-b py-3 font-bold">
                   <span className="text-xs text-primary-yellow">há 58 minutos</span>
-                  {mainArticle.title}
+                  {mainArticle?.title}
                 </li>
               ))}
             </ul>
@@ -57,15 +53,15 @@ export default async function Home() {
 
       {/*Second row */}
       <div className="grid w-full grid-cols-4 grid-rows-2 gap-6 pt-6">
-        {Array.from({ length: 8 }).map((_, index) => (
-          <ArticleCard key={index + 1} {...mainArticle} />
-        ))}
+        {Array.from({ length: 8 }).map(
+          (_, index) => mainArticle && <ArticleCard key={index + 1} {...mainArticle} />,
+        )}
       </div>
 
       {/*Middle banner */}
       <Image
         loader={cloudinaryLoader}
-        src={middleBanner.image.url}
+        src={middleBanner?.image.url || ""}
         alt={""}
         width={1320}
         height={510}
@@ -76,11 +72,11 @@ export default async function Home() {
       <div className="flex flex-col gap-5">
         <h2 className="text-3xl font-bold text-primary-yellow">Apostas</h2>
         <div className="grid grid-rows-2 gap-6">
-          <FeaturedArticleCard flex="row" {...betArticle} />
+          {betArticle && <FeaturedArticleCard flex="row" {...betArticle} />}
           <div className="grid grid-cols-4 gap-6">
-            {Array.from({ length: 4 }).map((_, index) => (
-              <ArticleCard key={index + 1} {...betArticle} />
-            ))}
+            {Array.from({ length: 4 }).map(
+              (_, index) => betArticle && <ArticleCard key={index + 1} {...betArticle} />,
+            )}
           </div>
         </div>
       </div>
