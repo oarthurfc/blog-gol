@@ -11,8 +11,8 @@ export default async function Home() {
 
   generateMetadataObject(home?.seo);
 
-  if (!home || (home as any).error) {
-    return <div>Erro ao carregar página inicial: {(home as any).error || ""}</div>;
+  if (!home) {
+    return <div>Erro ao carregar página inicial</div>;
   }
 
   const mainArticle = home.main_article;

@@ -9,7 +9,7 @@ import { populateImage, populateSEO, populateCategory } from "@/lib/strapi/const
 export async function getHomepage(): Promise<HomePageData | null> {
   const params: StrapiQueryParams = {
     populate: {
-      "*": true, // pega tudo
+      populate: "*", // Adicione esta linha para garantir que os dados sejam populados
       top_banner: {
         populate: {
           image: {
