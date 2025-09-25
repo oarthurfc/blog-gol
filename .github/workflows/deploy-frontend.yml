@@ -44,8 +44,8 @@ jobs:
             exit 1
           fi
         env:
-          STRAPI_INTERNAL_URL: ${{ secrets.STRAPI_BUILD_URL }}
-          NEXT_PUBLIC_STRAPI_API_URL: ${{ secrets.STRAPI_BUILD_URL }}/api          
+          STRAPI_INTERNAL_URL: ${{ vars.STRAPI_BUILD_URL }}
+          NEXT_PUBLIC_STRAPI_API_URL: ${{ vars.STRAPI_BUILD_URL }}/api          
 
       - name: Build and push image to GHCR
         uses: docker/build-push-action@v5
