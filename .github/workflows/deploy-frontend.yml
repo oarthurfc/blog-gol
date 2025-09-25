@@ -35,6 +35,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Verify environment variables
+        run: |
+          echo "STRAPI_INTERNAL_URL=$STRAPI_INTERNAL_URL"
+          echo "NEXT_PUBLIC_STRAPI_API_URL=$NEXT_PUBLIC_STRAPI_API_URL"
+          if [ -z "$STRAPI_INTERNAL_URL" ]; then
+            echo "Error: STRAPI_INTERNAL_URL is not set"
+            exit 1
+          fi
+        env:
+          STRAPI_INTERNAL_URL: ${{ secrets.STRAPI_BUILD_URL }}
+          NEXT_PUBLIC_STRAPI_API_URL: ${{ secrets.STRAPI_BUILD_URL }}/api          
+
       - name: Build and push image to GHCR
         uses: docker/build-push-action@v5
         with:
@@ -42,6 +54,7 @@ jobs:
           file: ./frontend/Dockerfile
           platforms: linux/amd64
           push: true
+          no-cache: true  # Prevent cache issues
           tags: |
             ghcr.io/oarthurfc/blog-gol-frontend:latest
           build-args: |

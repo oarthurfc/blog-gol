@@ -38,10 +38,16 @@ export default async function fetchContentType<T>(
     }
 
     // Escolhe a URL base conforme ambiente (SSR/build ou client-side)
+    console.log("STRAPI_INTERNAL_URL:", process.env.STRAPI_INTERNAL_URL);
+    console.log("NEXT_PUBLIC_STRAPI_API_URL:", process.env.NEXT_PUBLIC_STRAPI_API_URL);
     const baseUrl =
       typeof window === "undefined"
         ? process.env.STRAPI_INTERNAL_URL
         : process.env.NEXT_PUBLIC_STRAPI_API_URL;
+    console.log("Base URL:", baseUrl);
+    if (!baseUrl) {
+      throw new Error("Missing STRAPI_INTERNAL_URL or NEXT_PUBLIC_STRAPI_API_URL");
+    }
 
     // Construct the full URL for the API request
     const url = new URL(`api/${contentType}`, baseUrl);
@@ -74,6 +80,11 @@ export default async function fetchContentType<T>(
     return jsonData as StrapiApiResponse<T>;
   } catch (error) {
     console.error("FetchContentTypeError", error);
+    if (error instanceof Error) {
+      console.error("FetchContentTypeError:", error.message, error.stack);
+    } else {
+      console.error("FetchContentTypeError:", String(error));
+    }
     return spreadData ? null : ({} as StrapiApiResponse<T>);
   }
 }
