@@ -61,7 +61,6 @@ export default async function fetchContentType<T>(
 
     const response = await fetch(finalUrl, {
       method: "GET",
-      next: { revalidate: 5 }, // Revalida a cada 10 segundos
     });
 
     if (!response.ok) {
