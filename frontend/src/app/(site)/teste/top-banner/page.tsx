@@ -13,6 +13,7 @@ export default async function Home() {
       <pre>{JSON.stringify(home, null, 2)}</pre>
       <pre>{JSON.stringify(article, null, 2)}</pre>
       <pre>{JSON.stringify(global, null, 2)}</pre>
+      <p>00:56</p>
     </div>
   );
 }
