@@ -17,6 +17,10 @@ jobs:
       contents: read
       packages: write
 
+    env:
+      STRAPI_INTERNAL_URL: ${{ secrets.STRAPI_BUILD_URL }}
+      NEXT_PUBLIC_STRAPI_API_URL: ${{ secrets.STRAPI_BUILD_URL }}/api  # Adjust if needed
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -40,3 +44,6 @@ jobs:
           push: true
           tags: |
             ghcr.io/oarthurfc/blog-gol-frontend:latest
+          build-args: |
+            STRAPI_INTERNAL_URL=${{ env.STRAPI_INTERNAL_URL }}
+            NEXT_PUBLIC_STRAPI_API_URL=${{ env.NEXT_PUBLIC_STRAPI_API_URL }}
