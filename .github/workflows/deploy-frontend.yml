@@ -18,8 +18,8 @@ jobs:
       packages: write
 
     env:
-      STRAPI_INTERNAL_URL: ${{ secrets.STRAPI_BUILD_URL }}
-      NEXT_PUBLIC_STRAPI_API_URL: ${{ secrets.STRAPI_BUILD_URL }}/api  # Adjust if needed
+      STRAPI_INTERNAL_URL: ${{ vars.STRAPI_BUILD_URL }}
+      NEXT_PUBLIC_STRAPI_API_URL: ${{ vars.STRAPI_BUILD_URL }}/api  # Adjust if needed
 
     steps:
       - name: Checkout repository
