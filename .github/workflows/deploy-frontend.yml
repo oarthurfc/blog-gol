@@ -18,8 +18,8 @@ jobs:
       packages: write
 
     env:
-      STRAPI_INTERNAL_URL: ${{ vars.STRAPI_BUILD_URL }}
-      NEXT_PUBLIC_STRAPI_API_URL: ${{ vars.STRAPI_BUILD_URL }}/api  # Adjust if needed
+      STRAPI_INTERNAL_URL: "https://admin.golagolesportes.com"
+      NEXT_PUBLIC_STRAPI_API_URL: "https://admin.golagolesportes.com/api"
 
     steps:
       - name: Checkout repository
@@ -42,10 +42,7 @@ jobs:
           if [ -z "$STRAPI_INTERNAL_URL" ]; then
             echo "Error: STRAPI_INTERNAL_URL is not set"
             exit 1
-          fi
-        env:
-          STRAPI_INTERNAL_URL: ${{ vars.STRAPI_BUILD_URL }}
-          NEXT_PUBLIC_STRAPI_API_URL: ${{ vars.STRAPI_BUILD_URL }}/api          
+          fi      
 
       - name: Build and push image to GHCR
         uses: docker/build-push-action@v5
