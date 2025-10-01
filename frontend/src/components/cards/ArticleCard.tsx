@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "../ui/badge";
 import { Square, Timer } from "lucide-react";
 import cloudinaryLoader from "@/lib/cloudinary";
+import { formatDateFull } from "@/lib/helpers";
 import { Article } from "@/types/article";
 
 export default function ArticleCard(props: Article) {
@@ -50,11 +51,7 @@ export default function ArticleCard(props: Article) {
 
         <div className="flex flex-row items-center gap-1 text-xs font-bold text-secondary-foreground">
           <Timer width={14} />
-          {new Date(publishedAt).toLocaleDateString("pt-BR", {
-            day: "numeric",
-            month: "short",
-            year: "numeric",
-          })}
+          {formatDateFull(publishedAt)}
         </div>
       </CardContent>
     </Card>
