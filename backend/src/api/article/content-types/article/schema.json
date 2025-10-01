@@ -51,6 +51,11 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::author.author"
     }
   }
 }
