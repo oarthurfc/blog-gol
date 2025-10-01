@@ -74,7 +74,7 @@ export async function getRelatedArticles(
 ): Promise<Article[]> {
   const params: StrapiQueryParams = {
     filters: {
-      category: {
+      categories: {
         id: {
           $eq: categoryId,
         },
@@ -87,8 +87,8 @@ export async function getRelatedArticles(
       limit,
     },
     populate: {
-      coverImage: populateImageMinimal(), // Para relacionados, usar campos mínimos
-      category: populateCategory(),
+      image: populateImage(), // Para relacionados, usar campos mínimos
+      categories: populateCategory(),
     },
   };
 
