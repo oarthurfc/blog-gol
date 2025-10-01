@@ -1,9 +1,14 @@
+import { getArticles } from "@/services/articles";
 import React from "react";
 
 export default async function ArticlesPage() {
+  const articles = await getArticles(1, 10);
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="mb-6 text-3xl font-bold">Todos os Artigos</h1>
+
+      <pre>{JSON.stringify(articles, null, 2)}</pre>
 
       {/* Filtros (opcional) */}
       <div className="mb-8">

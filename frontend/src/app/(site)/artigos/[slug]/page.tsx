@@ -68,6 +68,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </div>
 
             <BlockRendererClient content={content} />
+            <p>Autor: {artigo.author?.name}</p>
 
             {/* Artigos relacionados */}
             <div className="mt-12">

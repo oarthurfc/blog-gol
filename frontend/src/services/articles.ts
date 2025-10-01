@@ -19,11 +19,9 @@ export async function getArticles(
   const params: StrapiQueryParams = {
     sort: ["publishedAt:desc"],
     populate: {
-      coverImage: populateImageMinimal(),
-      category: populateCategory(),
-      author: {
-        populate: ["name", "avatar"],
-      },
+      image: populateImageMinimal(),
+      categories: populateCategory(),
+      author: true,
     },
     pagination: {
       page,
@@ -51,7 +49,7 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
     populate: {
       image: populateImage(),
       categories: populateCategory(),
-      //author: { populate: ["name", "avatar"] },
+      author: true,
       seo: populateSEO(),
     },
   };

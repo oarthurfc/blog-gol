@@ -14,6 +14,9 @@ export interface Article {
   categories?: Category[];
   publishedAt: string;
   seo?: SEO;
+  author?: {
+    name: string;
+  };
   relatedArticles?: {
     articles: {
       data: StrapiData<Article>[];
