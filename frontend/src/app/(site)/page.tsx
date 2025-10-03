@@ -97,7 +97,7 @@ export default async function Home() {
       />
 
       {/*Apostas */}
-      <div className="flex flex-col gap-5">
+      <div className="flex w-full flex-col gap-5">
         <h2 className="text-3xl font-bold text-primary-yellow">Apostas</h2>
         <div className="max-h-[678px]">
           {betArticle && <FeaturedArticleCard flex="row" {...betArticle} />}
