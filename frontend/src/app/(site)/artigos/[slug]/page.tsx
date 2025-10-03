@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import BlockRendererClient from "@/components/BlockRenderClient";
 import { getArticleBySlug } from "@/services/articles";
 import { BlocksContent } from "@strapi/blocks-react-renderer";
@@ -9,6 +8,7 @@ import { formatDate } from "@/lib/helpers";
 import { Badge } from "@/components/ui/badge";
 import { Square } from "lucide-react";
 import { Category } from "@/types/category";
+import UltimasNoticias from "@/components/UltimasNoticias";
 
 interface ArticlePageProps {
   params: Promise<{
@@ -79,19 +79,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </div>
           </div>
 
-          {/* Últimas notícias */}
-          <div className="flex w-1/4 flex-1 flex-col gap-4 rounded-sm bg-card px-4 py-5">
-            <h3 className="text-2xl font-bold text-primary-yellow">Últimas notícias</h3>
-            <ul className="pb-2">
-              {Array.from({ length: 7 }).map((_, index) => (
-                <li key={index + 1} className="flex flex-col border-b py-3 font-bold">
-                  <span className="text-xs text-primary-yellow">há 58 minutos</span>
-                  última notícia
-                </li>
-              ))}
-            </ul>
-            <Button>Ver mais</Button>
-          </div>
+          <UltimasNoticias />
         </div>
       </div>
     </article>
