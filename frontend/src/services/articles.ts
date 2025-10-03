@@ -27,7 +27,47 @@ export async function getArticles(
       page,
       pageSize,
     },
-    filters,
+    filters: {
+      ...filters,
+    },
+  };
+
+  const response = await fetchContentType<Article>("articles", params);
+
+  // Type guard para verificar se a response não é null e tem array de dados
+  if (response && "data" in response && Array.isArray(response.data)) {
+    return response.data.map((item) => item.attributes || item);
+  }
+
+  return [];
+}
+
+/**
+ * Obter artigos por categoria
+ */
+export async function getArticlesByCategory(
+  categorySlug: string,
+  page: number = 1,
+  pageSize: number = 10,
+): Promise<Article[]> {
+  const params: StrapiQueryParams = {
+    sort: ["publishedAt:desc"],
+    populate: {
+      image: populateImageMinimal(),
+      categories: populateCategory(),
+      author: true,
+    },
+    pagination: {
+      page,
+      pageSize,
+    },
+    filters: {
+      categories: {
+        slug: {
+          $eq: categorySlug,
+        },
+      },
+    },
   };
 
   const response = await fetchContentType<Article>("articles", params);

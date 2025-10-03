@@ -11,14 +11,30 @@ import Link from "next/link";
 
 export default async function Home() {
   const home = await getHomepage();
-  const articles = await getArticles(1, 30); // Fetch more articles for all sections
 
   generateMetadataObject(home?.seo);
 
-  const mainArticle = home?.main_article;
-  const betArticle = home?.bet_main_article;
   const topBanner = home?.top_banner;
+  const mainArticle = home?.main_article;
   const middleBanner = home?.middle_banner;
+  const betArticle = home?.bet_main_article;
+
+  const articles = await getArticles(1, 25, {
+    id: {
+      $ne: mainArticle?.id,
+    },
+  });
+
+  const betArticles = await getArticles(1, 25, {
+    categories: {
+      slug: {
+        $eq: "aposta",
+      },
+    },
+    id: {
+      $ne: betArticle?.id,
+    },
+  });
 
   return (
     <div className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col items-center py-10 sm:items-start">
@@ -40,11 +56,11 @@ export default async function Home() {
               <ArticleCard key={article.id || article.slug} {...article} />
             ))}
           </div>
-          <div className="flex h-full max-h-[800px] w-full flex-col justify-between rounded-sm bg-card px-4 py-5">
+          <div className="flex h-full max-h-[768px] w-full flex-col justify-between rounded-sm bg-card px-4 py-5">
             <div className="flex max-h-[95%] flex-col gap-2">
               <h3 className="text-2xl font-bold text-primary-yellow">Últimas notícias</h3>
               <ul className="overflow-y-auto pb-2">
-                {articles.slice(0, 18).map((article) => (
+                {articles.slice(3, 15).map((article) => (
                   <Link
                     href={`/artigos/${article.slug}`}
                     key={article.id || article.slug}
@@ -65,7 +81,7 @@ export default async function Home() {
 
       {/*Second row */}
       <div className="grid w-full grid-cols-4 grid-rows-2 gap-6 pt-6">
-        {articles.slice(2, 7).map((article) => (
+        {articles.slice(3, 11).map((article) => (
           <ArticleCard key={article.id || article.slug} {...article} />
         ))}
       </div>
@@ -83,11 +99,11 @@ export default async function Home() {
       {/*Apostas */}
       <div className="flex flex-col gap-5">
         <h2 className="text-3xl font-bold text-primary-yellow">Apostas</h2>
-        <div className="max-h-[800px]">
+        <div className="max-h-[678px]">
           {betArticle && <FeaturedArticleCard flex="row" {...betArticle} />}
         </div>
         <div className="grid grid-cols-4 gap-6">
-          {articles.slice(2, 7).map((article) => (
+          {betArticles.slice(0, 4).map((article) => (
             <ArticleCard key={article.id || article.slug} {...article} />
           ))}
         </div>
@@ -97,7 +113,7 @@ export default async function Home() {
       <div className="flex w-full flex-col gap-5 py-14">
         <h2 className="text-3xl font-bold text-primary-yellow">Mais lidos</h2>
         <div className="grid grid-cols-2 grid-rows-4 gap-x-4 gap-y-2">
-          {articles.slice(2, 8).map((article, index) => (
+          {articles.slice(0, 8).map((article, index) => (
             <div
               key={article.id || article.slug}
               className="flex flex-row items-center gap-6 rounded-md border bg-card px-3 py-2"
