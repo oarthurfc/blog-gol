@@ -15,10 +15,10 @@ export default function FeaturedArticleCard(props: Article) {
 
   return (
     <Card
-      className={`flex-1 flex-${flex} overflow-hidden rounded-lg border-card bg-card py-0 text-white`}
+      className={`flex-${flex} h-full w-full overflow-hidden rounded-lg border-card bg-card py-0 text-white`}
     >
       {image?.url && (
-        <Link href={`/artigos/${slug}`} className="relative min-h-96 w-full min-w-[50%]">
+        <Link href={`/artigos/${slug}`} className="relative aspect-[16/9] w-full">
           <Image
             loader={cloudinaryLoader}
             src={image.url}
@@ -28,7 +28,7 @@ export default function FeaturedArticleCard(props: Article) {
           />
         </Link>
       )}
-      <CardContent className="flex h-full flex-col justify-center gap-4 px-12 py-16">
+      <CardContent className="flex flex-auto flex-col justify-center gap-4 px-12 py-16">
         {categories && categories.length > 0 && (
           <div className="flex gap-2">
             {categories.map((categoria, index) => (
