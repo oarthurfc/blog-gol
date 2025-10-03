@@ -83,13 +83,13 @@ export default async function Home() {
       {/*Apostas */}
       <div className="flex flex-col gap-5">
         <h2 className="text-3xl font-bold text-primary-yellow">Apostas</h2>
-        <div className="grid max-h-[800px] grid-rows-2 gap-6">
+        <div className="max-h-[800px]">
           {betArticle && <FeaturedArticleCard flex="row" {...betArticle} />}
-          <div className="grid grid-cols-4 gap-6">
-            {articles.slice(2, 7).map((article) => (
-              <ArticleCard key={article.id || article.slug} {...article} />
-            ))}
-          </div>
+        </div>
+        <div className="grid grid-cols-4 gap-6">
+          {articles.slice(2, 7).map((article) => (
+            <ArticleCard key={article.id || article.slug} {...article} />
+          ))}
         </div>
       </div>
 
