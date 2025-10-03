@@ -9,6 +9,8 @@ import { getHomepage } from "@/services/homepage";
 import Image from "next/image";
 import Link from "next/link";
 
+export const revalidate = 5;
+
 export default async function Home() {
   const home = await getHomepage();
 
