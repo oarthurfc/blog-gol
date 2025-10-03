@@ -7,6 +7,7 @@ import { generateMetadataObject } from "@/lib/metadata";
 import { getArticles } from "@/services/articles";
 import { getHomepage } from "@/services/homepage";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function Home() {
   const home = await getHomepage();
@@ -31,7 +32,7 @@ export default async function Home() {
       />
 
       {/*First row */}
-      <div className="grid w-full grid-cols-2 gap-6 pt-14">
+      <div className="grid max-h-fit w-full grid-cols-2 gap-6 pt-14">
         {mainArticle && <FeaturedArticleCard {...mainArticle} />}
         <div className="grid grid-cols-2 gap-6">
           <div className="flex w-full flex-col gap-6">
@@ -39,21 +40,24 @@ export default async function Home() {
               <ArticleCard key={article.id || article.slug} {...article} />
             ))}
           </div>
-          <div className="flex w-full flex-col gap-4 rounded-sm bg-card px-4 py-5">
-            <h3 className="text-2xl font-bold text-primary-yellow">Últimas notícias</h3>
-            <ul className="pb-2">
-              {articles.slice(2, 7).map((article) => (
-                <li
-                  key={article.id || article.slug}
-                  className="flex flex-col border-b py-3 font-bold"
-                >
-                  <span className="text-xs text-primary-yellow">
-                    {formatDateShort(article.publishedAt)}
-                  </span>
-                  {article.title}
-                </li>
-              ))}
-            </ul>
+          <div className="flex h-full max-h-[800px] w-full flex-col justify-between rounded-sm bg-card px-4 py-5">
+            <div className="flex max-h-[95%] flex-col gap-2">
+              <h3 className="text-2xl font-bold text-primary-yellow">Últimas notícias</h3>
+              <ul className="overflow-y-auto pb-2">
+                {articles.slice(0, 18).map((article) => (
+                  <Link
+                    href={`/artigos/${article.slug}`}
+                    key={article.id || article.slug}
+                    className="flex flex-col border-b py-3 font-bold"
+                  >
+                    <span className="text-xs text-primary-yellow">
+                      {formatDateShort(article.publishedAt)}
+                    </span>
+                    {article.title}
+                  </Link>
+                ))}
+              </ul>
+            </div>
             <Button>Ver mais</Button>
           </div>
         </div>
@@ -79,7 +83,7 @@ export default async function Home() {
       {/*Apostas */}
       <div className="flex flex-col gap-5">
         <h2 className="text-3xl font-bold text-primary-yellow">Apostas</h2>
-        <div className="grid grid-rows-2 gap-6">
+        <div className="grid max-h-[800px] grid-rows-2 gap-6">
           {betArticle && <FeaturedArticleCard flex="row" {...betArticle} />}
           <div className="grid grid-cols-4 gap-6">
             {articles.slice(2, 7).map((article) => (
