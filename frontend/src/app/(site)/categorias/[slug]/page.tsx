@@ -8,14 +8,15 @@ interface CategoryPageProps {
   params: Promise<{
     slug: string;
   }>;
-  searchParams: {
+  searchParams: Promise<{
     page?: string;
-  };
+  }>;
 }
 
 export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
   const { slug } = await params;
-  const currentPage = Number(searchParams.page) || 1;
+  const { page } = await searchParams;
+  const currentPage = Number(page) || 1;
   const pageSize = 12;
 
   const articles = await getArticlesByCategory(slug, currentPage, pageSize);

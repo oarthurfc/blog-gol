@@ -5,13 +5,14 @@ import Link from "next/link";
 import React from "react";
 
 interface ArticlesPageProps {
-  searchParams: {
+  searchParams: Promise<{
     page?: string;
-  };
+  }>;
 }
 
 export default async function ArticlesPage({ searchParams }: ArticlesPageProps) {
-  const currentPage = Number(searchParams.page) || 1;
+  const { page } = await searchParams;
+  const currentPage = Number(page) || 1;
   const pageSize = 12;
 
   const articles = await getArticles(currentPage, pageSize);
