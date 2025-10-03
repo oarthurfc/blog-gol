@@ -2,12 +2,14 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import BlockRendererClient from "@/components/BlockRenderClient";
-import { getArticleBySlug } from "@/services/articles";
+import ArticleCard from "@/components/cards/ArticleCard";
+import { getArticleBySlug, getRelatedArticles } from "@/services/articles";
 import { BlocksContent } from "@strapi/blocks-react-renderer";
 import { formatDate } from "@/lib/helpers";
 import { Badge } from "@/components/ui/badge";
 import { Square } from "lucide-react";
 import { Category } from "@/types/category";
+import { Article } from "@/types/article";
 import UltimasNoticias from "@/components/UltimasNoticias";
 
 interface ArticlePageProps {
@@ -20,10 +22,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params;
 
   const artigo = await getArticleBySlug(slug);
-  console.log(artigo);
 
   if (!artigo) {
     notFound();
+  }
+
+  // Buscar artigos relacionados por categoria
+  let relatedArticles: Article[] = [];
+  if (artigo.categories && artigo.categories.length > 0) {
+    const firstCategory = artigo.categories[0];
+    relatedArticles = await getRelatedArticles(firstCategory.id, artigo.id?.toString() || "", 4);
   }
 
   const content: BlocksContent = artigo.content;
@@ -43,7 +51,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             Artigos
           </Link>{" "}
           &gt;
-          <span className="font-medium"> Título do Artigo</span>
+          <span className="font-medium"> {artigo.title}</span>
         </div>
         <div className="grid grid-cols-4 gap-5">
           {/* Article content */}
@@ -69,20 +77,24 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
             <BlockRendererClient content={content} />
             <p>Autor: {artigo.author?.name}</p>
-
-            {/* Artigos relacionados */}
-            <div className="mt-12">
-              <h2 className="mb-4 text-2xl font-semibold">Artigos Relacionados</h2>
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {/* ArticleCard components irão aqui */}
-              </div>
-            </div>
           </div>
 
           <div className="col-span-1">
             <UltimasNoticias />
           </div>
         </div>
+
+        {/* Artigos relacionados */}
+        {relatedArticles.length > 0 && (
+          <div className="mt-12">
+            <h2 className="mb-6 text-3xl font-bold text-primary-yellow">Artigos Relacionados</h2>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {relatedArticles.map((article) => (
+                <ArticleCard key={article.id || article.slug} {...article} />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </article>
   );
