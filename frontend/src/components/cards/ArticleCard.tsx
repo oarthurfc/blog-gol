@@ -27,7 +27,7 @@ export default function ArticleCard(props: Article) {
         </Link>
       )}
 
-      <CardContent className="flex min-w-[50%] flex-1 flex-col justify-between gap-4 p-4">
+      <CardContent className="flex flex-1 flex-col justify-between gap-4 p-4">
         <CardHeader className="gap-4 p-0">
           {categories && categories.length > 0 && (
             <div className="flex gap-2">

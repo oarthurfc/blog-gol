@@ -28,7 +28,7 @@ export default function FeaturedArticleCard(props: Article) {
           />
         </Link>
       )}
-      <CardContent className="flex flex-auto flex-col justify-center gap-4 px-12 py-16">
+      <CardContent className="flex min-w-[50%] flex-1 flex-col justify-center gap-4 px-12 py-16">
         {categories && categories.length > 0 && (
           <div className="flex gap-2">
             {categories.map((categoria, index) => (
