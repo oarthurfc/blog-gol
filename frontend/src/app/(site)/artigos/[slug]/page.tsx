@@ -45,9 +45,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           &gt;
           <span className="font-medium"> Título do Artigo</span>
         </div>
-        <div className="flex gap-5">
+        <div className="grid grid-cols-4 gap-5">
           {/* Article content */}
-          <div className="flex w-3/4 flex-col rounded-lg bg-card px-14 py-12">
+          <div className="col-span-3 flex flex-col rounded-lg bg-card px-14 py-12">
             {/* Título e metadados */}
             <div className="mb-8 flex items-center text-sm text-gray-600">
               {categories && categories.length > 0 && (
@@ -79,7 +79,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </div>
           </div>
 
-          <UltimasNoticias />
+          <div className="col-span-1">
+            <UltimasNoticias />
+          </div>
         </div>
       </div>
     </article>
