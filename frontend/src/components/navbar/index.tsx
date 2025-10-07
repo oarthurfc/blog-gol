@@ -3,6 +3,7 @@
 import cloudinaryLoader from "@/lib/cloudinary";
 import Image from "next/image";
 import Link from "next/link";
+import { ModeToggle } from "./components/ModeToggle";
 
 type Props = {
   right_navbar_items: {
@@ -47,6 +48,7 @@ export function Navbar({ data }: { data: Props | null }) {
             </ul>
           </nav>
         )}
+        <ModeToggle />
       </div>
     </div>
   );

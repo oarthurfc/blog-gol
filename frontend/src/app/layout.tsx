@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { getGlobalData } from "@/services/global";
+import { ThemeProvider } from "@/components/themeProvider";
 
 const interSans = Inter({
   variable: "--font-inter-sans",
@@ -22,11 +23,18 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const pageData = await getGlobalData();
 
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <body className={`${interSans.variable} flex min-h-screen flex-col antialiased`}>
-        <Navbar data={pageData?.navbar || null} />
-        <main className="flex-grow">{children}</main>
-        <Footer data={pageData?.footer || null} />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar data={pageData?.navbar || null} />
+          <main className="flex-grow">{children}</main>
+          <Footer data={pageData?.footer || null} />
+        </ThemeProvider>
       </body>
     </html>
   );
