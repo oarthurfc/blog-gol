@@ -66,7 +66,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                       className="flex flex-row items-center gap-2"
                       href={`/categorias/${categoria.slug}`}
                     >
-                      <Badge className="text-background">{categoria.name}</Badge>
+                      <Badge className="text-gray-900">{categoria.name}</Badge>
                       {index < categories.length - 1 && <Square width={20} height={2} />}
                     </Link>
                   ))}
