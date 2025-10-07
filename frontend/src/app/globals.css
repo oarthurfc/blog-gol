@@ -8,10 +8,11 @@
   --primary-yellow: #ffc107;
   --radius: 0.625rem;
 
-  --background: #0f0f0f;
-  --foreground: #ffffff;
+  --background: oklch(0.97 0 0);
 
-  --card: #1a1a1a;
+  --foreground: oklch(0.2645 0 0);
+
+  --card: oklch(1 0 0);
 
   --border: #333333;
 
