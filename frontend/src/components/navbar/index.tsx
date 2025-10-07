@@ -39,7 +39,9 @@ export function Navbar({ data }: { data: Props | null }) {
             <ul className="flex flex-row gap-12">
               {data.right_navbar_items.map((item) => (
                 <li key={item.id} className="font-semibold">
-                  {item.text.toUpperCase()}
+                  <Link href={item.URL} target={item.target}>
+                    {item.text.toUpperCase()}
+                  </Link>
                 </li>
               ))}
             </ul>
