@@ -15,7 +15,7 @@ export default function FeaturedArticleCard(props: Article) {
 
   return (
     <Card
-      className={`flex-${flex} h-full w-full overflow-hidden rounded-lg border-card bg-card py-0 text-white`}
+      className={`flex-${flex} h-full w-full overflow-hidden rounded-lg border-card bg-card py-0`}
     >
       {image?.url && (
         <Link href={`/artigos/${slug}`} className="relative aspect-[16/9] w-full">

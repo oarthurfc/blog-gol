@@ -14,7 +14,7 @@ export default function ArticleCard(props: Article) {
   const { title, slug, image, categories, publishedAt } = props;
 
   return (
-    <Card className="flex h-full w-full flex-col overflow-hidden rounded-sm border-card bg-card py-0 text-white">
+    <Card className="flex h-full w-full flex-col overflow-hidden rounded-sm border-card bg-card py-0">
       {image?.url && (
         <Link href={`/artigos/${slug}`} className="relative aspect-[16/9] w-full">
           <Image
