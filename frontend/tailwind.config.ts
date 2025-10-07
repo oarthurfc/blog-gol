@@ -14,6 +14,7 @@ const config: Config = {
         ring: "var(--ring)",
         background: "var(--background)",
         foreground: "var(--foreground)",
+        heading: "var(--heading)",
         primary: {
           DEFAULT: "var(--primary)",
           foreground: "var(--primary-foreground)",
@@ -21,7 +22,7 @@ const config: Config = {
         },
         secondary: {
           DEFAULT: "var(--secondary)",
-          foreground: "var(--secondary-foreground)",
+          foreground: "var(--secondary-foreground) ",
         },
         destructive: {
           DEFAULT: "var(--destructive)",

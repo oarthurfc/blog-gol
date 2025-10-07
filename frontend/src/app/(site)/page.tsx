@@ -79,7 +79,7 @@ export default async function Home() {
 
       {/*Apostas */}
       <div className="flex w-full flex-col gap-5">
-        <h2 className="text-3xl font-bold text-primary-yellow">Apostas</h2>
+        <h2 className="text-heading text-3xl font-bold">Apostas</h2>
         <div className="max-h-[678px]">
           {betArticle && <FeaturedArticleCard flex="row" {...betArticle} />}
         </div>
@@ -92,12 +92,12 @@ export default async function Home() {
 
       {/* Mais lidos */}
       <div className="flex w-full flex-col gap-5 py-14">
-        <h2 className="text-3xl font-bold text-primary-yellow">Mais lidos</h2>
+        <h2 className="text-heading text-3xl font-bold">Mais lidos</h2>
         <div className="grid grid-cols-2 grid-rows-4 gap-x-4 gap-y-2">
           {articles.slice(0, 8).map((article, index) => (
             <div
               key={article.id || article.slug}
-              className="flex flex-row items-center gap-6 rounded-md border bg-card px-3 py-2"
+              className="border- flex flex-row items-center gap-6 rounded-md border border-background bg-card px-3 py-2"
             >
               <span className="text-4xl font-bold text-primary-yellow">{index + 1}</span>
               <p className="font-bold">{article.title}</p>

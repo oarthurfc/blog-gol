@@ -8,7 +8,7 @@ export default async function UltimasNoticias() {
   return (
     <div className="flex h-full max-h-[768px] w-full flex-col justify-between gap-4 rounded-sm bg-card px-4 py-5">
       <div className="flex max-h-[95%] flex-col gap-2">
-        <h3 className="text-2xl font-bold text-primary-yellow">Últimas notícias</h3>
+        <h3 className="text-heading text-2xl font-bold">Últimas notícias</h3>
         <ul className="overflow-y-auto pb-2">
           {articles.slice(3, 15).map((article) => (
             <Link

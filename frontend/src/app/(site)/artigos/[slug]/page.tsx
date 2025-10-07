@@ -87,7 +87,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         {/* Artigos relacionados */}
         {relatedArticles.length > 0 && (
           <div className="mt-12">
-            <h2 className="mb-6 text-3xl font-bold text-primary-yellow">Artigos Relacionados</h2>
+            <h2 className="text-heading mb-6 text-3xl font-bold">Artigos Relacionados</h2>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {relatedArticles.map((article) => (
                 <ArticleCard key={article.id || article.slug} {...article} />
