@@ -5,7 +5,7 @@ import BlockRendererClient from "@/components/BlockRenderClient";
 import ArticleCard from "@/components/cards/ArticleCard";
 import { getArticleBySlug, getRelatedArticles } from "@/services/articles";
 import { BlocksContent } from "@strapi/blocks-react-renderer";
-import { formatDate } from "@/lib/helpers";
+import { formatDateWithTime } from "@/lib/helpers";
 import { Badge } from "@/components/ui/badge";
 import { Square } from "lucide-react";
 import { Category } from "@/types/category";
@@ -56,27 +56,33 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         <div className="grid grid-cols-4 gap-5">
           {/* Article content */}
           <div className="col-span-3 flex flex-col rounded-lg bg-card px-14 py-12">
-            {/* Título e metadados */}
-            <div className="mb-8 flex items-center text-sm text-gray-600">
-              {categories && categories.length > 0 && (
-                <div className="flex gap-2">
-                  {categories.map((categoria, index) => (
-                    <Link
-                      key={categoria.id}
-                      className="flex flex-row items-center gap-2"
-                      href={`/categorias/${categoria.slug}`}
-                    >
-                      <Badge className="text-gray-900">{categoria.name}</Badge>
-                      {index < categories.length - 1 && <Square width={20} height={2} />}
-                    </Link>
-                  ))}
-                </div>
-              )}
-              <span className="pl-2">{formatDate(artigo.publishedAt)}</span>
-            </div>
+            {categories && categories.length > 0 && (
+              <div className="mb-8 flex gap-2">
+                {categories.map((categoria, index) => (
+                  <Link
+                    key={categoria.id}
+                    className="flex flex-row items-center gap-2"
+                    href={`/categorias/${categoria.slug}`}
+                  >
+                    <Badge className="text-gray-900">{categoria.name}</Badge>
+                    {index < categories.length - 1 && <Square width={20} height={2} />}
+                  </Link>
+                ))}
+              </div>
+            )}
 
             <BlockRendererClient content={content} />
-            <p>Autor: {artigo.author?.name}</p>
+            <div className="flex justify-between border-t pt-6">
+              <div className="flex flex-col">
+                <p className="text-lg font-bold">{artigo.author?.name}</p>
+                <span className="text-secondary-foreground">
+                  {formatDateWithTime(artigo.publishedAt)}
+                </span>
+              </div>
+              <div>
+                <p>compartilhar</p>
+              </div>
+            </div>
           </div>
 
           <div className="col-span-1">

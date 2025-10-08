@@ -50,6 +50,19 @@ export function formatDateFull(dateString: string): string {
 }
 
 /**
+ * Formata data para exibição completa com horário (dia, mês, ano e hora)
+ */
+export function formatDateWithTime(dateString: string): string {
+  return formatDate(dateString, "pt-BR", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+/**
  * Obtém o tempo de leitura estimado de um conteúdo
  * @param content - Conteúdo a ser analisado
  * @param wordsPerMinute - Palavras por minuto (padrão: 200)
