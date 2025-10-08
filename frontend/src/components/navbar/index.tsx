@@ -34,21 +34,22 @@ export function Navbar({ data }: { data: Props | null }) {
             />
           </Link>
         )}
-
-        {data?.right_navbar_items && data.right_navbar_items.length > 0 && (
-          <nav className="flex flex-row">
-            <ul className="flex flex-row gap-12">
-              {data.right_navbar_items.map((item) => (
-                <li key={item.id} className="font-semibold">
-                  <Link href={item.URL} target={item.target}>
-                    {item.text.toUpperCase()}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
-        <ModeToggle />
+        <div className="flex flex-row items-center gap-6">
+          {data?.right_navbar_items && data.right_navbar_items.length > 0 && (
+            <nav className="flex flex-row">
+              <ul className="flex flex-row gap-12">
+                {data.right_navbar_items.map((item) => (
+                  <li key={item.id} className="font-semibold text-white">
+                    <Link href={item.URL} target={item.target}>
+                      {item.text.toUpperCase()}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
+          <ModeToggle />
+        </div>
       </div>
     </div>
   );
