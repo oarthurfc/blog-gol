@@ -15,7 +15,7 @@
 
   --card: oklch(1 0 0);
 
-  --border: #333333;
+  --border: oklch(0.928 0.006 264.531);
 
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.13 0.028 261.692);
