@@ -6,8 +6,10 @@ import ArticleCard from "@/components/cards/ArticleCard";
 import { getArticleBySlug, getRelatedArticles } from "@/services/articles";
 import { BlocksContent } from "@strapi/blocks-react-renderer";
 import { formatDateWithTime } from "@/lib/helpers";
+import { generateMetadataObject } from "@/lib/metadata";
 import { Badge } from "@/components/ui/badge";
 import { Square } from "lucide-react";
+import ShareSection from "@/components/ShareSection";
 import { Category } from "@/types/category";
 import { Article } from "@/types/article";
 import UltimasNoticias from "@/components/UltimasNoticias";
@@ -18,10 +20,25 @@ interface ArticlePageProps {
   }>;
 }
 
+export async function generateMetadata({ params }: ArticlePageProps) {
+  const { slug } = await params;
+  const artigo = await getArticleBySlug(slug);
+
+  if (!artigo) {
+    return {
+      title: "Artigo não encontrado",
+      description: "O artigo solicitado não foi encontrado.",
+    };
+  }
+
+  return generateMetadataObject(artigo.seo, artigo?.author, artigo.publishedAt);
+}
+
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params;
 
   const artigo = await getArticleBySlug(slug);
+  console.log("artigo", artigo);
 
   if (!artigo) {
     notFound();
@@ -74,14 +91,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <BlockRendererClient content={content} />
             <div className="flex justify-between border-t pt-6">
               <div className="flex flex-col">
-                <p className="text-lg font-bold">{artigo.author?.name}</p>
-                <span className="text-secondary-foreground">
+                <p className="text-lg font-bold">
+                  {artigo.author?.first_name + " " + artigo.author?.last_name}
+                </p>
+                <span className="text-sm text-secondary-foreground">
                   {formatDateWithTime(artigo.publishedAt)}
                 </span>
               </div>
-              <div>
-                <p>compartilhar</p>
-              </div>
+              <ShareSection
+                seo={generateMetadataObject(artigo.seo, artigo.author, artigo.publishedAt)}
+              />
             </div>
           </div>
 
