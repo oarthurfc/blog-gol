@@ -19,7 +19,7 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
 
   return (
     <div className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col py-10">
-      <h1 className="mb-8 text-3xl font-bold text-primary-yellow">Todos os Artigos</h1>
+      <h1 className="text-heading mb-8 text-3xl font-bold">Todos os Artigos</h1>
 
       {/* Lista de artigos */}
       {articles.length > 0 ? (

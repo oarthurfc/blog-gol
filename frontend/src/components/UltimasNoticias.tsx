@@ -16,15 +16,13 @@ export default async function UltimasNoticias() {
               key={article.id || article.slug}
               className="flex flex-col border-b py-3 font-bold"
             >
-              <span className="text-xs text-primary-yellow">
-                {formatDateShort(article.publishedAt)}
-              </span>
+              <span className="text-heading text-xs">{formatDateShort(article.publishedAt)}</span>
               {article.title}
             </Link>
           ))}
         </ul>
       </div>
-      <Button>Ver mais</Button>
+      <Button className="text-gray-900">Ver mais</Button>
     </div>
   );
 }
