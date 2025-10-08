@@ -23,6 +23,7 @@ interface ArticlePageProps {
 export async function generateMetadata({ params }: ArticlePageProps) {
   const { slug } = await params;
   const artigo = await getArticleBySlug(slug);
+  console.log("artigo", artigo);
 
   if (!artigo) {
     return {
@@ -38,7 +39,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params;
 
   const artigo = await getArticleBySlug(slug);
-  console.log("artigo", artigo);
 
   if (!artigo) {
     notFound();
