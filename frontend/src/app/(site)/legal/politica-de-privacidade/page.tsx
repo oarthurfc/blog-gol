@@ -2,6 +2,8 @@ import BlockRendererClient from "@/components/BlockRenderClient";
 import { getPoliticaDePrivacidade } from "@/services/legal";
 import { notFound } from "next/navigation";
 
+export const revalidate = 5;
+
 export default async function PoliticaDePrivacidade() {
   const politica = await getPoliticaDePrivacidade();
   console.log("politica", politica);

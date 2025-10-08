@@ -2,6 +2,8 @@ import BlockRendererClient from "@/components/BlockRenderClient";
 import { getTermosECondicoes } from "@/services/legal";
 import { notFound } from "next/navigation";
 
+export const revalidate = 5;
+
 export default async function TermosECondicoes() {
   const termos = await getTermosECondicoes();
   console.log("termos", termos);
