@@ -26,7 +26,7 @@ export function Navbar({ data }: { data: Props | null }) {
 
   return (
     <div className="relative h-16 w-full overflow-hidden border-b-4 border-primary-yellow bg-primary-yellow">
-      <div className={`absolute inset-0 bg-black ${CLIP_PATH_CLASS}`}></div>
+      <div className={`absolute inset-0 bg-[#232323] ${CLIP_PATH_CLASS}`}></div>
 
       <div className="relative z-10 mx-auto flex h-full w-full max-w-[1320px] flex-row items-center justify-between px-4">
         {data?.logo && (
@@ -46,11 +46,7 @@ export function Navbar({ data }: { data: Props | null }) {
             <nav className="flex flex-row">
               <ul className="flex flex-row gap-6 md:gap-12">
                 {data.right_navbar_items.map((item) => (
-                  <li
-                    key={item.id}
-                    // Alterado para 'text-black' para contraste no fundo amarelo
-                    className="font-bold text-black"
-                  >
+                  <li key={item.id} className="font-bold text-black">
                     <Link href={item.URL} target={item.target}>
                       {item.text.toUpperCase()}
                     </Link>

@@ -15,7 +15,7 @@ export function Footer({ data }: FooterProps) {
   const { logo, description, copyright, internal_links = [], policy_links = [] } = data;
 
   return (
-    <footer className="border-t-4 border-primary-yellow bg-black text-white">
+    <footer className="border-t-4 border-primary-yellow bg-[#232323] text-white">
       {/* Newsletter */}
       <div className="bg-primary-yellow p-6 text-black">
         <div className="mx-auto flex max-w-[1320px] flex-col items-center space-y-4 md:flex-row md:justify-between md:space-y-0">
@@ -41,7 +41,7 @@ export function Footer({ data }: FooterProps) {
         </div>
       </div>
 
-      <div className="container mx-auto max-w-[1320px] bg-black px-4 py-12">
+      <div className="container mx-auto max-w-[1320px] bg-[#232323] px-4 py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {/* Logo e descrição */}
           <div className="flex flex-col space-y-4">
@@ -54,7 +54,7 @@ export function Footer({ data }: FooterProps) {
                 alt="Logo Gol a Gol"
               />
             )}
-            {description && <p className="text-muted-foreground">{description}</p>}
+            {description && <p>{description}</p>}
           </div>
 
           {/* Links internos */}
@@ -67,12 +67,12 @@ export function Footer({ data }: FooterProps) {
                     <Link
                       href={link.URL}
                       target={link.target || "_self"}
-                      className="text-muted-foreground transition-colors hover:text-primary-yellow"
+                      className="transition-colors hover:text-primary-yellow"
                     >
                       {link.text}
                     </Link>
                   ) : (
-                    <span className="text-muted-foreground">{link.text}</span>
+                    <span>{link.text}</span>
                   )}
                 </li>
               ))}
@@ -89,12 +89,12 @@ export function Footer({ data }: FooterProps) {
                     <Link
                       href={link.URL}
                       target={link.target || "_self"}
-                      className="text-muted-foreground transition-colors hover:text-primary-yellow"
+                      className="transition-colors hover:text-primary-yellow"
                     >
                       {link.text}
                     </Link>
                   ) : (
-                    <span className="text-muted-foreground">{link.text}</span>
+                    <span>{link.text}</span>
                   )}
                 </li>
               ))}
@@ -104,7 +104,7 @@ export function Footer({ data }: FooterProps) {
 
         {/* Copyright */}
         <div className="mt-8 border-t border-gray-800 pt-8 text-center">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm">
             {copyright || `© ${new Date().getFullYear()} Gol a Gol. Todos os direitos reservados.`}
           </p>
         </div>
