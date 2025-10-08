@@ -37,7 +37,7 @@ export default function ArticleCard(props: Article) {
                   className="flex flex-row items-center gap-2"
                   href={`/categorias/${categoria.slug}`}
                 >
-                  <Badge className="text-gray-900">{categoria.name}</Badge>
+                  <Badge>{categoria.name}</Badge>
                   {index < categories.length - 1 && <Square width={20} height={2} />}
                 </Link>
               ))}
