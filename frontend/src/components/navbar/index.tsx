@@ -45,7 +45,7 @@ export function Navbar({ data }: { data: Props | null }) {
               width={90}
               height={30}
               alt="Logo Gol a Gol"
-              className="h-auto w-auto scale-75 md:scale-100"
+              className="h-auto w-auto scale-75 md:scale-90"
             />
           </Link>
         )}
