@@ -5,6 +5,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { getGlobalData } from "@/services/global";
 import { ThemeProvider } from "@/components/themeProvider";
+import seoData from "@/lib/nextMetadata";
 
 const interSans = Inter({
   variable: "--font-inter-sans",
@@ -13,10 +14,7 @@ const interSans = Inter({
 
 // Default Global SEO for pages without them
 export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "Blog GOL",
-    description: "Seu esportivo de futebol favorito",
-  };
+  return seoData;
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

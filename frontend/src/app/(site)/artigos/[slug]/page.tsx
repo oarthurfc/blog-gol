@@ -13,6 +13,7 @@ import ShareSection from "@/components/ShareSection";
 import { Category } from "@/types/category";
 import { Article } from "@/types/article";
 import UltimasNoticias from "@/components/UltimasNoticias";
+import seoData from "@/lib/nextMetadata";
 
 interface ArticlePageProps {
   params: Promise<{
@@ -23,13 +24,9 @@ interface ArticlePageProps {
 export async function generateMetadata({ params }: ArticlePageProps) {
   const { slug } = await params;
   const artigo = await getArticleBySlug(slug);
-  console.log("artigo", artigo);
 
-  if (!artigo) {
-    return {
-      title: "Artigo não encontrado",
-      description: "O artigo solicitado não foi encontrado.",
-    };
+  if (!artigo || !artigo.seo) {
+    return seoData;
   }
 
   return generateMetadataObject(artigo.seo, artigo?.author, artigo.publishedAt);

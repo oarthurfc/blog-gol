@@ -3,12 +3,23 @@ import FeaturedArticleCard from "@/components/cards/FeaturedArticleCard";
 import UltimasNoticias from "@/components/UltimasNoticias";
 import cloudinaryLoader from "@/lib/cloudinary";
 import { generateMetadataObject } from "@/lib/metadata";
+import seoData from "@/lib/nextMetadata";
 import { getArticles } from "@/services/articles";
 import { getHomepage } from "@/services/homepage";
 import Image from "next/image";
 import Link from "next/link";
 
 export const revalidate = 5;
+
+export async function generateMetadata() {
+  const home = await getHomepage();
+
+  if (!home || !home.seo) {
+    return seoData;
+  }
+
+  return generateMetadataObject(home?.seo);
+}
 
 export default async function Home() {
   const home = await getHomepage();
