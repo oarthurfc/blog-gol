@@ -110,11 +110,11 @@ export default async function Home() {
             <Link
               key={article.id || article.slug}
               href={`/articles/${article.slug}`}
-              className={`border- flex flex-row items-center gap-4 rounded-md border border-background bg-card px-3 py-2 lg:gap-6 ${
+              className={`border- flex flex-row items-center gap-4 rounded-md border border-background bg-card px-5 py-2 lg:gap-6 ${
                 index >= 5 ? "hidden lg:flex" : ""
               }`}
             >
-              <span className="min-w-[2rem] text-2xl font-bold text-primary-yellow lg:min-w-[3rem] lg:text-4xl">
+              <span className="text-2xl font-bold text-primary-yellow lg:text-4xl">
                 {index + 1}
               </span>
               <p className="text-sm font-bold lg:text-base">{article.title}</p>
