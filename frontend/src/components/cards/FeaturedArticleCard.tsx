@@ -15,10 +15,13 @@ export default function FeaturedArticleCard(props: Article) {
 
   return (
     <Card
-      className={`flex-${flex} h-full w-full overflow-hidden rounded-lg border-card bg-card py-0`}
+      className={`flex-col ${flex === "row" ? "lg:flex-row" : "flex-col"} h-full w-full overflow-hidden rounded-lg border-card bg-card py-0`}
     >
       {image?.url && (
-        <Link href={`/artigos/${slug}`} className="relative aspect-[16/9] w-full">
+        <Link
+          href={`/artigos/${slug}`}
+          className={`relative ${flex === "row" ? "aspect-[16/9] lg:aspect-[4/3] lg:min-w-[50%]" : "aspect-[16/9]"} w-full`}
+        >
           <Image
             loader={cloudinaryLoader}
             src={image.url}
@@ -28,9 +31,9 @@ export default function FeaturedArticleCard(props: Article) {
           />
         </Link>
       )}
-      <CardContent className="flex min-w-[50%] flex-1 flex-col justify-center gap-4 px-12 py-16">
+      <CardContent className="flex min-w-[50%] flex-1 flex-col justify-center gap-4 px-6 py-8 lg:px-12 lg:py-16">
         {categories && categories.length > 0 && (
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             {categories.map((categoria, index) => (
               <Link
                 key={categoria.id}
@@ -45,20 +48,22 @@ export default function FeaturedArticleCard(props: Article) {
         )}
         <CardHeader className="p-0">
           <CardTitle>
-            <Link className="text-3xl" href={`/artigos/${slug}`}>
+            <Link className="text-xl lg:text-3xl" href={`/artigos/${slug}`}>
               {title}
             </Link>
           </CardTitle>
-          <CardDescription className="text-card-foreground text-xl">{description}</CardDescription>
+          <CardDescription className="text-card-foreground text-base lg:text-xl">
+            {description}
+          </CardDescription>
         </CardHeader>
 
-        <div className="flex flex-row items-center gap-1 text-xs font-bold text-secondary-foreground">
+        <div className="flex flex-col gap-2 text-xs font-bold text-secondary-foreground sm:flex-row sm:items-center sm:gap-1">
           <div className="flex flex-row items-center gap-1">
             <Timer width={14} />
             {formatDateFull(publishedAt)}
           </div>
 
-          <div className="flex flex-row items-center gap-1 pl-2">
+          <div className="flex flex-row items-center gap-1 sm:pl-2">
             <Link className="text-sm text-foreground" href={`/artigos/${slug}`}>
               Todos os detalhes
             </Link>

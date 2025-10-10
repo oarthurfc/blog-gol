@@ -30,7 +30,7 @@ export default function ArticleCard(props: Article) {
       <CardContent className="flex flex-1 flex-col justify-between gap-4 p-4">
         <CardHeader className="gap-4 p-0">
           {categories && categories.length > 0 && (
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               {categories.map((categoria, index) => (
                 <Link
                   key={categoria.id}
@@ -44,7 +44,7 @@ export default function ArticleCard(props: Article) {
             </div>
           )}
           <CardTitle>
-            <Link className="text-lg" href={`/artigos/${slug}`}>
+            <Link className="text-base lg:text-lg" href={`/artigos/${slug}`}>
               {title}
             </Link>
           </CardTitle>

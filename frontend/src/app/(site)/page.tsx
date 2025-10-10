@@ -38,20 +38,20 @@ export default async function Home() {
   });
 
   return (
-    <div className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col items-center py-10 sm:items-start">
+    <div className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col items-center px-5 py-10 sm:items-start lg:px-0">
       <Image
         loader={cloudinaryLoader}
         src={topBanner?.image.url || ""}
         alt={""}
         width={1320}
         height={48}
-        className="cursor-pointer"
+        className="h-auto w-full cursor-pointer"
       />
 
       {/*First row */}
-      <div className="grid max-h-fit w-full grid-cols-2 gap-6 pt-14">
+      <div className="grid max-h-fit w-full grid-cols-1 gap-6 pt-8 lg:grid-cols-2 lg:pt-14">
         {mainArticle && <FeaturedArticleCard {...mainArticle} />}
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="flex w-full flex-col gap-6">
             {articles.slice(0, 2).map((article) => (
               <ArticleCard key={article.id || article.slug} {...article} />
@@ -62,7 +62,7 @@ export default async function Home() {
       </div>
 
       {/*Second row */}
-      <div className="grid w-full grid-cols-4 grid-rows-2 gap-6 pt-6">
+      <div className="grid w-full grid-cols-1 gap-6 pt-6 sm:grid-cols-2 lg:grid-cols-4">
         {articles.slice(3, 11).map((article) => (
           <ArticleCard key={article.id || article.slug} {...article} />
         ))}
@@ -75,16 +75,16 @@ export default async function Home() {
         alt={""}
         width={1320}
         height={510}
-        className="cursor-pointer py-14"
+        className="h-auto w-full cursor-pointer py-8 lg:py-14"
       />
 
       {/*Apostas */}
       <div className="flex w-full flex-col gap-5">
-        <h2 className="text-3xl font-bold text-heading">Apostas</h2>
-        <div className="max-h-[678px]">
+        <h2 className="text-2xl font-bold text-heading lg:text-3xl">Apostas</h2>
+        <div className="max-h-none lg:max-h-[678px]">
           {betArticle && <FeaturedArticleCard flex="row" {...betArticle} />}
         </div>
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {betArticles.slice(0, 4).map((article) => (
             <ArticleCard key={article.id || article.slug} {...article} />
           ))}
@@ -92,17 +92,21 @@ export default async function Home() {
       </div>
 
       {/* Mais lidos */}
-      <div className="flex w-full flex-col gap-5 py-14">
-        <h2 className="text-3xl font-bold text-heading">Mais lidos</h2>
-        <div className="grid grid-cols-2 grid-rows-4 gap-x-4 gap-y-2">
+      <div className="flex w-full flex-col gap-5 py-8 lg:py-14">
+        <h2 className="text-2xl font-bold text-heading lg:text-3xl">Mais lidos</h2>
+        <div className="grid grid-cols-1 gap-x-4 gap-y-2 lg:grid-cols-2">
           {articles.slice(0, 8).map((article, index) => (
             <Link
               key={article.id || article.slug}
               href={`/articles/${article.slug}`}
-              className="border- flex flex-row items-center gap-6 rounded-md border border-background bg-card px-3 py-2"
+              className={`border- flex flex-row items-center gap-4 rounded-md border border-background bg-card px-3 py-2 lg:gap-6 ${
+                index >= 5 ? "hidden lg:flex" : ""
+              }`}
             >
-              <span className="text-4xl font-bold text-primary-yellow">{index + 1}</span>
-              <p className="font-bold">{article.title}</p>
+              <span className="min-w-[2rem] text-2xl font-bold text-primary-yellow lg:min-w-[3rem] lg:text-4xl">
+                {index + 1}
+              </span>
+              <p className="text-sm font-bold lg:text-base">{article.title}</p>
             </Link>
           ))}
         </div>
