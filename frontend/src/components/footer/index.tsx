@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Footer as FooterType } from "@/types/footer";
 import cloudinaryLoader from "@/lib/cloudinary";
+import { Instagram, Linkedin, Youtube, Twitter } from "lucide-react";
 
 interface FooterProps {
   data: FooterType | null;
@@ -54,7 +55,57 @@ export function Footer({ data }: FooterProps) {
                 alt="Logo Gol a Gol"
               />
             )}
-            {description && <p>{description}</p>}
+            {/* Redes Sociais */}
+            <div className="flex space-x-3">
+              <Link
+                href="https://www.instagram.com/golagolesportes"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group"
+                aria-label="Instagram"
+              >
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-700 transition-all duration-300 hover:bg-primary-yellow hover:text-black group-hover:scale-110">
+                  <Instagram size={16} />
+                </div>
+              </Link>
+
+              <Link
+                href="https://www.linkedin.com/company/golagolesportes/about/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group"
+                aria-label="LinkedIn"
+              >
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-700 transition-all duration-300 hover:bg-primary-yellow hover:text-black group-hover:scale-110">
+                  <Linkedin size={16} />
+                </div>
+              </Link>
+
+              <Link
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group"
+                aria-label="YouTube"
+              >
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-700 transition-all duration-300 hover:bg-primary-yellow hover:text-black group-hover:scale-110">
+                  <Youtube size={16} />
+                </div>
+              </Link>
+
+              <Link
+                href="https://x.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group"
+                aria-label="X (Twitter)"
+              >
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-700 transition-all duration-300 hover:bg-primary-yellow hover:text-black group-hover:scale-110">
+                  <Twitter size={16} />
+                </div>
+              </Link>
+            </div>
+            {description && <p className="text-gray-300">{description}</p>}
           </div>
 
           {/* Links internos */}
