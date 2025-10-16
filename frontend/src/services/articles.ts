@@ -1,5 +1,5 @@
 import fetchContentType from "@/lib/strapi/fetchContentType";
-import { Article } from "@/types/article";
+import { Article, ArticlePage } from "@/types/article";
 import { StrapiQueryParams } from "@/types";
 import {
   populateImage,
@@ -7,6 +7,31 @@ import {
   populateSEO,
   populateCategory,
 } from "@/lib/strapi/constants";
+
+/**
+ * Obter dados da página de artigos
+ */
+export async function getArticlePage(): Promise<ArticlePage | null> {
+  const params: StrapiQueryParams = {
+    populate: {
+      side_banner: {
+        populate: {
+          image: {
+            fields: ["url", "alternativeText", "width", "height"],
+          },
+        },
+      },
+    },
+  };
+
+  const response = await fetchContentType<ArticlePage>("article-page", params, true);
+
+  if (response && typeof response === "object") {
+    return response as ArticlePage;
+  }
+
+  return null;
+}
 
 /**
  * Obter todos os artigos com paginação

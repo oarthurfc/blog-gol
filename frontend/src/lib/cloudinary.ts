@@ -9,7 +9,7 @@ export default function cloudinaryLoader({
   width: number;
   quality?: number;
 }) {
-  const cloudinaryName = "dq2kgghmy";
+  const cloudinaryName = "test-qmc";
   const params = ["f_auto", "c_limit", `w_${width}`, `q_${quality || "auto"}`];
 
   // extrai apenas o path relativo da imagem

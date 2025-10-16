@@ -22,3 +22,19 @@ export interface Article {
     };
   };
 }
+
+export interface ArticlePage {
+  id: number;
+  documentId: string;
+  side_banner: {
+    id: number;
+    documentId: string;
+    title: string;
+    link: string;
+    position: string;
+    image?: {
+      url: string;
+      alternativeText?: string;
+    };
+  };
+}

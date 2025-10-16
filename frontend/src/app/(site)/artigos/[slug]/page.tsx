@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import BlockRendererClient from "@/components/BlockRenderClient";
 import ArticleCard from "@/components/cards/ArticleCard";
-import { getArticleBySlug, getRelatedArticles } from "@/services/articles";
+import { getArticleBySlug, getArticlePage, getRelatedArticles } from "@/services/articles";
 import { BlocksContent } from "@strapi/blocks-react-renderer";
 import { formatDateWithTime } from "@/lib/helpers";
 import { generateMetadataObject } from "@/lib/metadata";
@@ -13,6 +13,7 @@ import ShareSection from "@/components/ShareSection";
 import { Category } from "@/types/category";
 import { Article } from "@/types/article";
 import UltimasNoticias from "@/components/UltimasNoticias";
+import SideBanner from "@/components/SideBanner";
 import seoData from "@/lib/nextMetadata";
 
 interface ArticlePageProps {
@@ -36,6 +37,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params;
 
   const artigo = await getArticleBySlug(slug);
+  const articlePageData = await getArticlePage();
   console.log("Artigo CONTENT", artigo?.content);
 
   if (!artigo) {
@@ -68,11 +70,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           &gt;
           <span className="font-medium"> {artigo.title}</span>
         </div>
-        <div className="grid grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-4">
           {/* Article content */}
-          <div className="col-span-3 flex flex-col rounded-lg bg-card px-14 py-12">
+          <div className="flex flex-col rounded-lg bg-card px-6 py-8 lg:col-span-3 lg:px-14 lg:py-12">
             {categories && categories.length > 0 && (
-              <div className="mb-8 flex gap-2">
+              <div className="mb-8 flex flex-wrap gap-2">
                 {categories.map((categoria, index) => (
                   <Link
                     key={categoria.id}
@@ -87,7 +89,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             )}
 
             <BlockRendererClient content={content} />
-            <div className="flex justify-between border-t pt-6">
+            <div className="flex flex-col justify-between gap-4 border-t pt-6 lg:flex-row">
               <div className="flex flex-col">
                 {artigo.author && (
                   <p className="text-lg font-bold">
@@ -104,8 +106,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </div>
           </div>
 
-          <div className="col-span-1">
+          <div className="flex flex-col gap-6 lg:col-span-1">
             <UltimasNoticias />
+
+            {/* Banner lateral */}
+            {articlePageData?.side_banner && <SideBanner banner={articlePageData.side_banner} />}
           </div>
         </div>
 
