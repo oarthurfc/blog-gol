@@ -93,7 +93,7 @@ export function Navbar({ data }: { data: Props | null }) {
           <nav className="h-full px-4 py-6">
             <ul className="flex flex-col gap-6">
               {data?.right_navbar_items?.map((item) => (
-                <li key={item.id} className="font-bold text-white">
+                <li key={item.id} className="font-bold text-foreground">
                   <Link
                     href={item.URL}
                     target={item.target}
