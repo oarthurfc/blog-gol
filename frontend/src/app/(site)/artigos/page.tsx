@@ -18,8 +18,8 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
   const articles = await getArticles(currentPage, pageSize);
 
   return (
-    <div className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col py-10">
-      <h1 className="text-heading mb-8 text-3xl font-bold">Todos os Artigos</h1>
+    <div className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col items-center px-4 py-10 sm:items-start lg:px-0">
+      <h1 className="mb-8 text-3xl font-bold text-heading">Todos os Artigos</h1>
 
       {/* Lista de artigos */}
       {articles.length > 0 ? (

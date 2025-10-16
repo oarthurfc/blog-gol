@@ -25,7 +25,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
   const categoryDisplayName = slug.charAt(0).toUpperCase() + slug.slice(1);
 
   return (
-    <div className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col py-10">
+    <div className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col items-center px-4 py-10 sm:items-start lg:px-0">
       <h1 className="mb-8 text-3xl font-bold text-heading">{categoryDisplayName}</h1>
 
       {/* Lista de artigos da categoria */}

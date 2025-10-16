@@ -49,7 +49,7 @@ export default async function Home() {
   });
 
   return (
-    <div className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col items-center px-5 py-10 sm:items-start lg:px-0">
+    <div className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col items-center px-4 py-10 sm:items-start lg:px-0">
       <Image
         loader={cloudinaryLoader}
         src={topBanner?.image.url || ""}
