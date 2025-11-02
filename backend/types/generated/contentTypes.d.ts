@@ -385,6 +385,10 @@ export interface ApiApostaAposta extends Struct.SingleTypeSchema {
   };
   attributes: {
     bets: Schema.Attribute.Relation<'oneToMany', 'api::bet.bet'>;
+    categories: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::category.category'
+    >;
     content_1: Schema.Attribute.Blocks;
     content_2: Schema.Attribute.Blocks;
     createdAt: Schema.Attribute.DateTime;
