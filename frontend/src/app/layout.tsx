@@ -6,6 +6,7 @@ import { Footer } from "@/components/footer";
 import { getGlobalData } from "@/services/global";
 import { ThemeProvider } from "@/components/themeProvider";
 import seoData from "@/lib/nextMetadata";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 const interSans = Inter({
   variable: "--font-inter-sans",
@@ -22,6 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang="pt-BR" suppressHydrationWarning>
+      <GoogleTagManager gtmId="GTM-WXFL7HGC" />
       <body className={`${interSans.variable} flex min-h-screen flex-col antialiased`}>
         <ThemeProvider
           attribute="class"
