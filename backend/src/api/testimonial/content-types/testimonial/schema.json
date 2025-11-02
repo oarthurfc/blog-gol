@@ -11,13 +11,26 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "text": {
-      "type": "string"
+    "content": {
+      "type": "text",
+      "required": true
     },
-    "user": {
-      "type": "component",
-      "component": "shared.user",
-      "repeatable": false
+    "profile_picture": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "job_title": {
+      "type": "string",
+      "required": true
     }
   }
 }
