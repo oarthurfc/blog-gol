@@ -403,6 +403,7 @@ export interface ApiApostaAposta extends Struct.SingleTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
     testimonials: Schema.Attribute.Relation<
       'oneToMany',
       'api::testimonial.testimonial'
