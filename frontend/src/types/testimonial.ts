@@ -1,14 +1,13 @@
-import { StrapiImage, StrapiData } from '@/types';
+import { StrapiImage } from ".";
 
 export interface Testimonial {
+  id: number;
   name: string;
-  role?: string;
+  profilePicture?: StrapiImage;
   content: string;
-  rating?: number;
-  avatar?: {
-    data: StrapiData<StrapiImage>;
-  };
-  featured?: boolean;
+  jobTitle: string;
+  documentId: string;
   createdAt: string;
   updatedAt: string;
+  publishedAt: string;
 }
