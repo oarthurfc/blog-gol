@@ -3,7 +3,7 @@ import seoData from "@/lib/nextMetadata";
 import { Category } from "@/types/category";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, CheckIcon, Square, Star, StarIcon } from "lucide-react";
+import { CheckCircle, Square, Star } from "lucide-react";
 import BlockRendererClient from "@/components/BlockRenderClient";
 import cloudinaryLoader from "@/lib/cloudinary";
 import Image from "next/image";
