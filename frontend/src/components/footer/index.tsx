@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 import { Footer as FooterType } from "@/types/footer";
 import cloudinaryLoader from "@/lib/cloudinary";
 import { Instagram, Linkedin, Youtube, Twitter } from "lucide-react";
@@ -11,9 +12,42 @@ interface FooterProps {
 }
 
 export function Footer({ data }: FooterProps) {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+
   if (!data) return null;
 
   const { logo, description, copyright, internal_links = [], policy_links = [] } = data;
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage(null);
+
+    try {
+      const response = await fetch("/api/brevo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage({ type: "success", text: data.message });
+        setEmail("");
+      } else {
+        setMessage({ type: "error", text: data.error });
+      }
+    } catch (error) {
+      setMessage({ type: "error", text: "Erro ao processar sua inscrição. Tente novamente." });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <footer className="border-t-4 border-primary-yellow bg-[#232323] text-white">
@@ -26,19 +60,35 @@ export function Footer({ data }: FooterProps) {
               Receba as últimas notícias do futebol diretamente no seu e-mail
             </p>
           </div>
-          <div className="flex w-full max-w-md gap-2">
-            <input
-              type="email"
-              placeholder="Digite seu e-mail"
-              className="flex-1 rounded-md border border-gray-300 bg-white px-3 py-2 text-black placeholder-gray-500 focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
-            />
-            <button
-              type="button"
-              className="whitespace-nowrap rounded-md bg-black px-6 py-2 text-white transition-colors hover:bg-gray-800"
-            >
-              Inscrever
-            </button>
-          </div>
+          <form onSubmit={handleSubmit} className="w-full max-w-md space-y-2">
+            <div className="flex gap-2">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Digite seu e-mail"
+                required
+                disabled={loading}
+                className="flex-1 rounded-md border border-gray-300 bg-white px-3 py-2 text-black placeholder-gray-500 focus:border-black focus:outline-none focus:ring-1 focus:ring-black disabled:opacity-50"
+              />
+              <button
+                type="submit"
+                disabled={loading}
+                className="whitespace-nowrap rounded-md bg-black px-6 py-2 text-white transition-colors hover:bg-gray-800 disabled:opacity-50"
+              >
+                {loading ? "Enviando..." : "Inscrever"}
+              </button>
+            </div>
+            {message && (
+              <p
+                className={`text-sm ${
+                  message.type === "success" ? "text-green-700" : "text-red-700"
+                }`}
+              >
+                {message.text}
+              </p>
+            )}
+          </form>
         </div>
       </div>
 
