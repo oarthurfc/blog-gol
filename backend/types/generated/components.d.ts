@@ -38,6 +38,17 @@ export interface GlobalNavbar extends Struct.ComponentSchema {
   };
 }
 
+export interface GlobalTextList extends Struct.ComponentSchema {
+  collectionName: 'components_global_text_lists';
+  info: {
+    displayName: 'text-list';
+    icon: 'pencil';
+  };
+  attributes: {
+    item: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedLink extends Struct.ComponentSchema {
   collectionName: 'components_shared_links';
   info: {
@@ -124,6 +135,7 @@ declare module '@strapi/strapi' {
       'dynamic-zone.related-articles': DynamicZoneRelatedArticles;
       'global.footer': GlobalFooter;
       'global.navbar': GlobalNavbar;
+      'global.text-list': GlobalTextList;
       'shared.link': SharedLink;
       'shared.open-graph': SharedOpenGraph;
       'shared.seo': SharedSeo;

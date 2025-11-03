@@ -39,6 +39,14 @@
       "relation": "oneToOne",
       "target": "api::article.article"
     },
+    "link": {
+      "type": "string"
+    },
+    "ranking": {
+      "type": "integer",
+      "required": true,
+      "unique": true
+    },
     "checklist_1": {
       "type": "string"
     },
@@ -47,14 +55,6 @@
     },
     "checklist_3": {
       "type": "string"
-    },
-    "link": {
-      "type": "string"
-    },
-    "ranking": {
-      "type": "integer",
-      "required": true,
-      "unique": true
     }
   }
 }
