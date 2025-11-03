@@ -29,7 +29,7 @@ export default async function ApostasPage() {
 
   console.log(apostasPage);
   return (
-    <article className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col items-center px-4 py-10 sm:items-start lg:px-0">
+    <article className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col px-4 py-10 lg:px-0">
       {/* Categories */}
       {categories && categories.length > 0 && (
         <div className="mb-8 flex flex-wrap gap-2">
@@ -47,84 +47,88 @@ export default async function ApostasPage() {
       )}
 
       <h1 className="mb-4 text-3xl font-bold text-heading lg:text-4xl">{apostasPage?.title}</h1>
-      <p>{apostasPage?.description}</p>
+      <p className="mb-6 text-base lg:text-lg">{apostasPage?.description}</p>
 
       {/* Bets */}
       {apostasPage?.bets && apostasPage?.bets.length > 0 && (
-        <section className="my-12 flex w-full items-center justify-between">
+        <section className="my-12 flex w-full flex-col gap-4">
           {apostasPage.bets.map((bet) => (
             <div
               key={bet.ranking}
-              className="relative flex w-full flex-row items-center justify-between border-b-2 border-primary-yellow bg-card px-8 py-8"
+              className="relative flex w-full flex-col gap-6 border-b-2 border-primary-yellow bg-card px-4 py-8 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8"
             >
-              <span className="absolute left-0 top-0 h-5 w-5 bg-primary-yellow text-center text-sm font-bold text-black">
+              <span className="absolute right-0 top-0 h-6 w-6 bg-primary-yellow text-center text-sm font-bold leading-6 text-black sm:left-0">
                 {bet.ranking}
               </span>
 
-              <div className="flex flex-row items-center gap-2">
+              {/* Logo e Nome */}
+              <div className="flex flex-row items-center gap-3 sm:gap-4">
                 {bet.logo?.url && (
                   <Image
                     loader={cloudinaryLoader}
                     src={bet.logo?.url}
                     alt={bet.logo?.alternativeText || `Foto da casa de aposta ${bet.name}`}
-                    width={80}
-                    height={80}
-                    className="rounded-full object-cover"
+                    width={60}
+                    height={60}
+                    className="h-[60px] w-[60px] rounded-full object-cover sm:h-[80px] sm:w-[80px]"
                   />
                 )}
-                <div className="flex flex-col gap-0">
-                  <p className="text-lg font-bold">{bet.name}</p>
+                <div className="flex flex-col gap-1">
+                  <p className="text-base font-bold sm:text-lg">{bet.name}</p>
                   <span className="flex flex-row text-sm text-[#F59E0B]">
                     {Array.from({ length: bet.stars }).map((_, index) => (
-                      <Star key={index} fill="#F59E0B" />
+                      <Star key={index} fill="#F59E0B" className="h-4 w-4" />
                     ))}
                   </span>
                 </div>
               </div>
 
+              {/* Diferencial */}
               {bet.differential && (
-                <div>
-                  <p className="font-bold text-primary-yellow">Diferencial</p>
-                  <p className="pb-2">{bet.differential}</p>
+                <div className="flex flex-col gap-2">
+                  <p className="text-sm font-bold text-primary-yellow sm:text-base">Diferencial</p>
+                  <p className="text-sm sm:text-base">{bet.differential}</p>
                   {bet?.article?.slug && (
-                    <Link className="text-gray-500 underline" href={bet?.article?.slug}>
+                    <Link className="text-sm text-gray-500 underline" href={bet?.article?.slug}>
                       Leia {bet.name} Review
                     </Link>
                   )}
                 </div>
               )}
 
+              {/* Checklist */}
               <div className="flex flex-col gap-2">
                 {bet.checklist_1 && (
-                  <ul className="list-disc pl-5">
-                    <li className="flex list-none items-center gap-2">
-                      <CheckCircle color="#10B981" />
-                      {bet.checklist_1}
+                  <ul className="list-none">
+                    <li className="flex items-start gap-2 text-sm sm:text-base">
+                      <CheckCircle color="#10B981" className="mt-0.5 h-5 w-5 flex-shrink-0" />
+                      <span>{bet.checklist_1}</span>
                     </li>
                   </ul>
                 )}
 
                 {bet.checklist_2 && (
-                  <ul className="list-disc pl-5">
-                    <li className="flex list-none items-center gap-2">
-                      <CheckCircle color="#10B981" />
-                      {bet.checklist_2}
+                  <ul className="list-none">
+                    <li className="flex items-start gap-2 text-sm sm:text-base">
+                      <CheckCircle color="#10B981" className="mt-0.5 h-5 w-5 flex-shrink-0" />
+                      <span>{bet.checklist_2}</span>
                     </li>
                   </ul>
                 )}
 
                 {bet.checklist_3 && (
-                  <ul className="list-disc pl-5">
-                    <li className="flex list-none items-center gap-2">
-                      <CheckCircle color="#10B981" />
-                      {bet.checklist_3}
+                  <ul className="list-none">
+                    <li className="flex items-start gap-2 text-sm sm:text-base">
+                      <CheckCircle color="#10B981" className="mt-0.5 h-5 w-5 flex-shrink-0" />
+                      <span>{bet.checklist_3}</span>
                     </li>
                   </ul>
                 )}
               </div>
 
-              <Link href={bet.link}>
-                <Button className="px-16">Cadastre-se</Button>
+              {/* Button */}
+              <Link href={bet.link} className="w-full sm:w-auto lg:w-auto">
+                <Button className="w-full px-8 sm:w-auto sm:px-16">Cadastre-se</Button>
               </Link>
             </div>
           ))}
@@ -169,13 +173,23 @@ export default async function ApostasPage() {
       {apostasPage?.content_2 && <BlockRendererClient content={apostasPage?.content_2} />}
 
       {/* FAQs */}
-      <h2>Perguntas Frequentes</h2>
-      {apostasPage?.faqs.map((faq) => (
-        <div key={faq.id} className="mb-4">
-          <h3 className="font-semibold">{faq.question}</h3>
-          <p>{faq.answer}</p>
-        </div>
-      ))}
+      {apostasPage?.faqs && apostasPage?.faqs.length > 0 && (
+        <section className="my-12 w-full">
+          <h2 className="mb-8 text-2xl font-bold text-heading lg:text-3xl">Perguntas Frequentes</h2>
+          <div className="flex flex-col gap-6">
+            {apostasPage.faqs.map((faq) => (
+              <div key={faq.id} className="bg-muted/50 rounded-lg p-4 sm:p-6">
+                <h3 className="mb-2 text-base font-semibold text-heading sm:text-lg">
+                  {faq.question}
+                </h3>
+                <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
+                  {faq.answer}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </article>
   );
 }
