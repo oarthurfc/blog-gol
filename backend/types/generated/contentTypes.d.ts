@@ -557,7 +557,7 @@ export interface ApiBetBet extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    articles: Schema.Attribute.Relation<'oneToOne', 'api::article.article'>;
+    article: Schema.Attribute.Relation<'oneToOne', 'api::article.article'>;
     checklist_1: Schema.Attribute.String;
     checklist_2: Schema.Attribute.String;
     checklist_3: Schema.Attribute.String;
