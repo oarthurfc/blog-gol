@@ -15,11 +15,20 @@ const interSans = Inter({
 
 // Default Global SEO for pages without them
 export async function generateMetadata(): Promise<Metadata> {
-  return seoData;
+  const pageData = await getGlobalData();
+
+  return {
+    ...seoData,
+    icons: {
+      icon: pageData?.favicon?.url || "/favicon.png",
+    },
+  };
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const pageData = await getGlobalData();
+
+  console.log("Page Data:", pageData);
 
   return (
     <html lang="pt-BR" suppressHydrationWarning>

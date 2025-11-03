@@ -25,6 +25,16 @@
       "type": "component",
       "component": "global.footer",
       "repeatable": false
+    },
+    "favicon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }

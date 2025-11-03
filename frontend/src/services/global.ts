@@ -1,5 +1,5 @@
 import fetchContentType from "@/lib/strapi/fetchContentType";
-import { StrapiQueryParams } from "@/types";
+import { StrapiImage, StrapiQueryParams } from "@/types";
 import { populateImage } from "@/lib/strapi/constants";
 
 // Tipos específicos para o content type Global
@@ -43,6 +43,7 @@ interface FooterLink {
 export interface GlobalData {
   id: number;
   seo: GlobalSeo;
+  favicon?: StrapiImage;
   navbar: NavbarData;
   footer: FooterData;
 }
@@ -71,6 +72,7 @@ export async function getGlobalData(): Promise<GlobalData | null> {
           metaImage: populateImage(),
         },
       },
+      favicon: populateImage(),
     },
   };
 
