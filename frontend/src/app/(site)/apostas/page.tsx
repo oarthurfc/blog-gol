@@ -15,6 +15,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+export const revalidate = 5;
+
 export async function generateMetadata() {
   const apostasPage = await getApostasPage();
 
