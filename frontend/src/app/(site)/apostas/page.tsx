@@ -8,6 +8,12 @@ import BlockRendererClient from "@/components/BlockRenderClient";
 import cloudinaryLoader from "@/lib/cloudinary";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export async function generateMetadata() {
   const apostasPage = await getApostasPage();
@@ -85,9 +91,9 @@ export default async function ApostasPage() {
 
               {/* Diferencial */}
               {bet.differential && (
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col">
                   <p className="text-sm font-bold text-primary-yellow sm:text-base">Diferencial</p>
-                  <p className="text-sm sm:text-base">{bet.differential}</p>
+                  <p className="pb-2 text-sm sm:text-base">{bet.differential}</p>
                   {bet?.article?.slug && (
                     <Link className="text-sm text-gray-500 underline" href={bet?.article?.slug}>
                       Leia {bet.name} Review
@@ -128,7 +134,7 @@ export default async function ApostasPage() {
 
               {/* Button */}
               <Link href={bet.link} className="w-full sm:w-auto lg:w-auto">
-                <Button className="w-full px-8 sm:w-auto sm:px-16">Cadastre-se</Button>
+                <Button className="w-full px-8 text-black sm:w-auto sm:px-16">Cadastre-se</Button>
               </Link>
             </div>
           ))}
@@ -176,18 +182,18 @@ export default async function ApostasPage() {
       {apostasPage?.faqs && apostasPage?.faqs.length > 0 && (
         <section className="my-12 w-full">
           <h2 className="mb-8 text-2xl font-bold text-heading lg:text-3xl">Perguntas Frequentes</h2>
-          <div className="flex flex-col gap-6">
-            {apostasPage.faqs.map((faq) => (
-              <div key={faq.id} className="bg-muted/50 rounded-lg p-4 sm:p-6">
-                <h3 className="mb-2 text-base font-semibold text-heading sm:text-lg">
+          <Accordion type="single" collapsible className="w-full">
+            {apostasPage.faqs.map((faq, index) => (
+              <AccordionItem key={faq.id} value={`item-${index}`}>
+                <AccordionTrigger className="text-left text-base font-semibold text-heading sm:text-lg">
                   {faq.question}
-                </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
+                </AccordionTrigger>
+                <AccordionContent className="text-sm leading-relaxed text-muted-foreground sm:text-base">
                   {faq.answer}
-                </p>
-              </div>
+                </AccordionContent>
+              </AccordionItem>
             ))}
-          </div>
+          </Accordion>
         </section>
       )}
     </article>
