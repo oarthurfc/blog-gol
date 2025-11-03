@@ -187,10 +187,10 @@ export default async function ApostasPage() {
           <Accordion type="single" collapsible className="w-full">
             {apostasPage.faqs.map((faq, index) => (
               <AccordionItem key={faq.id} value={`item-${index}`}>
-                <AccordionTrigger className="text-left text-base font-semibold text-heading sm:text-lg">
+                <AccordionTrigger className="rounded-none border-b border-primary-yellow text-left text-base font-semibold text-heading sm:text-lg">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-sm leading-relaxed text-muted-foreground sm:text-base">
+                <AccordionContent className="pt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
