@@ -3,9 +3,9 @@ import { StrapiImage } from ".";
 export interface Testimonial {
   id: number;
   name: string;
-  profilePicture?: StrapiImage;
+  profile_picture?: StrapiImage;
   content: string;
-  jobTitle: string;
+  job_title: string;
   documentId: string;
   createdAt: string;
   updatedAt: string;

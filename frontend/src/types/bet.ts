@@ -1,4 +1,5 @@
 import { StrapiImage } from ".";
+import { Article } from "./article";
 
 export interface Bet {
   id: number;
@@ -6,6 +7,7 @@ export interface Bet {
   name: string;
   stars: number;
   logo?: StrapiImage;
+  article: Article;
   differential: string;
   checklist_1: string;
   checklist_2: string;
