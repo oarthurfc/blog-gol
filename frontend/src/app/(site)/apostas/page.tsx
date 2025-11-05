@@ -97,7 +97,10 @@ export default async function ApostasPage() {
                   <p className="text-sm font-bold text-primary-yellow sm:text-base">Diferencial</p>
                   <p className="pb-2 text-sm sm:text-base">{bet.differential}</p>
                   {bet?.article?.slug && (
-                    <Link className="text-sm text-gray-500 underline" href={bet?.article?.slug}>
+                    <Link
+                      className="text-sm text-gray-500 underline"
+                      href={`/artigos/${bet?.article?.slug}`}
+                    >
                       Leia {bet.name} Review
                     </Link>
                   )}
