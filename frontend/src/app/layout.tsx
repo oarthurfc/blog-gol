@@ -27,12 +27,16 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const pageData = await getGlobalData();
+  const faviconUrl = pageData?.favicon?.url || "/favicon.png";
 
   console.log("Page Data:", pageData);
 
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <GoogleTagManager gtmId="GTM-WXFL7HGC" />
+      <head>
+        <link rel="icon" href={faviconUrl} type="image/png" />
+      </head>
       <body className={`${interSans.variable} flex min-h-screen flex-col antialiased`}>
         <ThemeProvider
           attribute="class"
