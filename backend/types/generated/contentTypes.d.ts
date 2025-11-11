@@ -376,7 +376,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiApostaAposta extends Struct.SingleTypeSchema {
   collectionName: 'apostas';
   info: {
-    displayName: '/aposta';
+    displayName: '/apostas-esportivas';
     pluralName: 'apostas';
     singularName: 'aposta';
   };
@@ -731,6 +731,30 @@ export interface ApiPoliticaDePrivacidadePoliticaDePrivacidade
       'oneToMany',
       'api::politica-de-privacidade.politica-de-privacidade'
     > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSlotSlot extends Struct.SingleTypeSchema {
+  collectionName: 'slots';
+  info: {
+    displayName: '/slot';
+    pluralName: 'slots';
+    singularName: 'slot';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::slot.slot'> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
@@ -1320,6 +1344,7 @@ declare module '@strapi/strapi' {
       'api::global.global': ApiGlobalGlobal;
       'api::home.home': ApiHomeHome;
       'api::politica-de-privacidade.politica-de-privacidade': ApiPoliticaDePrivacidadePoliticaDePrivacidade;
+      'api::slot.slot': ApiSlotSlot;
       'api::termos-e-condicoes.termos-e-condicoes': ApiTermosECondicoesTermosECondicoes;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
       'plugin::content-releases.release': PluginContentReleasesRelease;
