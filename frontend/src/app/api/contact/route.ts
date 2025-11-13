@@ -8,6 +8,9 @@ interface ContactFormData {
   message: string;
 }
 
+// Inicializar Resend apenas quando a rota for chamada
+const resend = new Resend(process.env.RESEND_API_KEY!);
+
 export async function POST(request: NextRequest) {
   try {
     const { name, email, subject, message }: ContactFormData = await request.json();
@@ -35,13 +38,19 @@ export async function POST(request: NextRequest) {
     const adminEmail = process.env.ADMIN_EMAIL;
     const resendApiKey = process.env.RESEND_API_KEY;
 
-    if (!adminEmail || !resendApiKey) {
-      console.error("Variáveis de ambiente não configuradas");
-      return Response.json({ error: "Configuração do servidor incompleta" }, { status: 500 });
+    if (!adminEmail) {
+      return Response.json(
+        { error: "Configuração do servidor incompleta - ADMIN_EMAIL não definido" },
+        { status: 500 },
+      );
     }
 
-    // Inicializar Resend apenas quando a rota for chamada
-    const resend = new Resend(resendApiKey);
+    if (!resendApiKey) {
+      return Response.json(
+        { error: "Configuração do servidor incompleta - RESEND_API_KEY não definido" },
+        { status: 500 },
+      );
+    }
 
     // HTML do email para o administrador
     const adminEmailHtml = `
