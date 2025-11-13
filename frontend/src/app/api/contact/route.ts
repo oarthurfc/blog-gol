@@ -1,8 +1,6 @@
 import { Resend } from "resend";
 import { NextRequest } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 interface ContactFormData {
   name: string;
   email: string;
@@ -35,11 +33,15 @@ export async function POST(request: NextRequest) {
     }
 
     const adminEmail = process.env.ADMIN_EMAIL;
+    const resendApiKey = process.env.RESEND_API_KEY;
 
-    if (!adminEmail) {
-      console.error("ADMIN_EMAIL não configurado");
+    if (!adminEmail || !resendApiKey) {
+      console.error("Variáveis de ambiente não configuradas");
       return Response.json({ error: "Configuração do servidor incompleta" }, { status: 500 });
     }
+
+    // Inicializar Resend apenas quando a rota for chamada
+    const resend = new Resend(resendApiKey);
 
     // HTML do email para o administrador
     const adminEmailHtml = `
