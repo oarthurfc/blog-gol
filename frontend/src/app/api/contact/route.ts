@@ -8,9 +8,6 @@ interface ContactFormData {
   message: string;
 }
 
-// Inicializar Resend apenas quando a rota for chamada
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(request: NextRequest) {
   try {
     const { name, email, subject, message }: ContactFormData = await request.json();
@@ -51,6 +48,9 @@ export async function POST(request: NextRequest) {
         { status: 500 },
       );
     }
+
+    // Inicializar Resend apenas quando a rota for chamada
+    const resend = new Resend(resendApiKey);
 
     // HTML do email para o administrador
     const adminEmailHtml = `
