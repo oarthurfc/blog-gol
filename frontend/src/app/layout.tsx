@@ -16,11 +16,20 @@ const interSans = Inter({
 // Default Global SEO for pages without them
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await getGlobalData();
+  const faviconUrl = pageData?.favicon?.url || "/favicon.png";
 
   return {
     ...seoData,
     icons: {
-      icon: pageData?.favicon?.url || "/favicon.png",
+      icon: [
+        {
+          url: faviconUrl,
+          type: "image/png",
+        },
+      ],
+      // This prevents Next.js from using default favicons
+      shortcut: faviconUrl,
+      apple: faviconUrl,
     },
   };
 }
