@@ -43,7 +43,9 @@ export default async function UltimasNoticias() {
           ))}
         </ul>
       </div>
-      <Button className="text-sm text-gray-900 lg:text-base">Ver mais</Button>
+      <Link href="/artigos">
+        <Button className="text-sm text-gray-900 lg:text-base">Ver mais</Button>
+      </Link>
     </div>
   );
 }
