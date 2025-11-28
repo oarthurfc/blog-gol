@@ -74,9 +74,26 @@ export default async function Home() {
 
       {/*Second row */}
       <div className="grid w-full grid-cols-1 gap-6 pt-6 sm:grid-cols-2 lg:grid-cols-4">
-        {articles.slice(3, 11).map((article) => (
+        {articles.slice(3, 10).map((article) => (
           <ArticleCard key={article.id || article.slug} {...article} />
         ))}
+
+        <iframe
+          src="https://widget.api-futebol.com.br/render/widget_937afd9779c76d45"
+          title="API Futebol - Widget"
+          width="220"
+          height="340"
+          style={{
+            border: "none",
+            borderRadius: "0.25rem",
+            background: "transparent",
+            width: "100%",
+            height: "370px",
+          }}
+          loading="lazy"
+          referrerPolicy="unsafe-url"
+          sandbox="allow-scripts allow-forms allow-popups allow-top-navigation-by-user-activation allow-popups-to-escape-sandbox"
+        ></iframe>
       </div>
 
       {/*Middle banner */}
