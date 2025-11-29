@@ -12,7 +12,7 @@ export default async function UltimasNoticias() {
     <div className="flex h-full w-full flex-col justify-between gap-4 rounded-sm bg-card px-4 py-5 lg:max-h-[768px]">
       <div className="flex max-h-[90%] flex-col gap-2">
         <h3 className="text-xl font-bold text-heading lg:text-2xl">Últimas notícias</h3>
-        <ul className="overflow-y-auto pb-2">
+        <ul className="overflow-y-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {articles.slice(3, 15).map((article) => (
             <Link
               href={`/artigos/${article.slug}`}
