@@ -74,7 +74,7 @@ export default async function Home() {
 
       {/*Second row */}
       <div className="grid w-full grid-cols-1 gap-6 pt-6 sm:grid-cols-2 lg:grid-cols-4">
-        {articles.slice(3, 10).map((article) => (
+        {articles.slice(3, 6).map((article) => (
           <ArticleCard key={article.id || article.slug} {...article} />
         ))}
 
