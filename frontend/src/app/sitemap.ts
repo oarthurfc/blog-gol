@@ -1,10 +1,75 @@
 import { MetadataRoute } from "next";
-import { getArticles } from "@/services/articles";
-import { getCategories } from "@/services/categories";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://golagolesportes.com";
 
+// Force dynamic rendering - sitemap will be generated on each request
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+async function getArticlesForSitemap() {
+  const strapiUrl = process.env.STRAPI_INTERNAL_URL || process.env.NEXT_PUBLIC_STRAPI_API_URL;
+
+  if (!strapiUrl) {
+    console.error("Sitemap: Missing Strapi URL");
+    return [];
+  }
+
+  try {
+    const response = await fetch(
+      `${strapiUrl}/api/articles?pagination[pageSize]=1000&fields[0]=slug&fields[1]=publishedAt&sort[0]=publishedAt:desc`,
+      {
+        cache: "no-store", // Disable caching
+        next: { revalidate: 0 },
+      },
+    );
+
+    if (!response.ok) {
+      console.error(`Sitemap: Failed to fetch articles - ${response.status}`);
+      return [];
+    }
+
+    const data = await response.json();
+    return data.data || [];
+  } catch (error) {
+    console.error("Sitemap: Error fetching articles", error);
+    return [];
+  }
+}
+
+async function getCategoriesForSitemap() {
+  const strapiUrl = process.env.STRAPI_INTERNAL_URL || process.env.NEXT_PUBLIC_STRAPI_API_URL;
+
+  if (!strapiUrl) {
+    console.error("Sitemap: Missing Strapi URL");
+    return [];
+  }
+
+  try {
+    const response = await fetch(`${strapiUrl}/api/categories?fields[0]=slug&fields[1]=updatedAt`, {
+      cache: "no-store", // Disable caching
+      next: { revalidate: 0 },
+    });
+
+    if (!response.ok) {
+      console.error(`Sitemap: Failed to fetch categories - ${response.status}`);
+      return [];
+    }
+
+    const data = await response.json();
+    return data.data || [];
+  } catch (error) {
+    console.error("Sitemap: Error fetching categories", error);
+    return [];
+  }
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // Fetch articles and categories in parallel
+  const [articles, categories] = await Promise.all([
+    getArticlesForSitemap(),
+    getCategoriesForSitemap(),
+  ]);
+
   // Static routes
   const staticRoutes: MetadataRoute.Sitemap = [
     {
@@ -39,24 +104,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // Fetch all articles for dynamic routes
-  // Using a large pageSize to get all articles
-  const articles = await getArticles(1, 1000);
-  const articleRoutes: MetadataRoute.Sitemap = articles.map((article) => ({
-    url: `${baseUrl}/artigos/${article.slug}`,
-    lastModified: article.publishedAt ? new Date(article.publishedAt) : new Date(),
-    changeFrequency: "weekly" as const,
-    priority: 0.7,
-  }));
+  // Dynamic article routes
+  const articleRoutes: MetadataRoute.Sitemap = articles.map(
+    (article: { slug: string; publishedAt?: string }) => ({
+      url: `${baseUrl}/artigos/${article.slug}`,
+      lastModified: article.publishedAt ? new Date(article.publishedAt) : new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    }),
+  );
 
-  // Fetch all categories for dynamic routes
-  const categories = await getCategories();
-  const categoryRoutes: MetadataRoute.Sitemap = categories.map((category) => ({
-    url: `${baseUrl}/categorias/${category.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: 0.6,
-  }));
+  // Dynamic category routes
+  const categoryRoutes: MetadataRoute.Sitemap = categories.map(
+    (category: { slug: string; updatedAt?: string }) => ({
+      url: `${baseUrl}/categorias/${category.slug}`,
+      lastModified: category.updatedAt ? new Date(category.updatedAt) : new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
+    }),
+  );
+
+  console.log(
+    `Sitemap generated: ${staticRoutes.length} static, ${articleRoutes.length} articles, ${categoryRoutes.length} categories`,
+  );
 
   return [...staticRoutes, ...articleRoutes, ...categoryRoutes];
 }
