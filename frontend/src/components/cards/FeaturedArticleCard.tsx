@@ -13,6 +13,12 @@ import { Article } from "@/types/article";
 export default function FeaturedArticleCard(props: Article) {
   const { title, description, slug, image, categories, publishedAt, flex = "column" } = props;
 
+  const MAX_DESCRIPTION_LENGTH = 210;
+  const truncatedDescription =
+    description && description.length > MAX_DESCRIPTION_LENGTH
+      ? `${description.slice(0, MAX_DESCRIPTION_LENGTH)}...`
+      : description;
+
   return (
     <Card
       className={`flex-col ${flex === "row" ? "lg:flex-row" : "flex-col"} h-full w-full overflow-hidden rounded-lg border-card bg-card py-0`}
@@ -53,7 +59,7 @@ export default function FeaturedArticleCard(props: Article) {
             </Link>
           </CardTitle>
           <CardDescription className="text-card-foreground text-base lg:text-xl">
-            {description}
+            {truncatedDescription}
           </CardDescription>
         </CardHeader>
 
