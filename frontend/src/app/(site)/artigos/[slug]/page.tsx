@@ -38,7 +38,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   const artigo = await getArticleBySlug(slug);
   const articlePageData = await getArticlePage();
-  console.log("Artigo CONTENT", artigo?.content);
 
   if (!artigo) {
     notFound();

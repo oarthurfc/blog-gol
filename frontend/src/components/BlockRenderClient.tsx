@@ -51,6 +51,25 @@ export default function BlockRendererClient({ content }: { readonly content: Blo
             />
           );
         },
+
+        quote: ({ children }) => (
+          <blockquote className="text-neutral700 mb-4 border-l-4 border-primary py-2 pl-4 italic leading-relaxed">
+            {children}
+          </blockquote>
+        ),
+
+        list: ({ children, format }) =>
+          format === "ordered" ? (
+            <ol className="text-neutral900 mb-4 list-decimal space-y-1 pl-6 leading-relaxed">
+              {children}
+            </ol>
+          ) : (
+            <ul className="text-neutral900 mb-4 list-disc space-y-1 pl-6 leading-relaxed">
+              {children}
+            </ul>
+          ),
+
+        "list-item": ({ children }) => <li className="leading-relaxed">{children}</li>,
       }}
     />
   );
