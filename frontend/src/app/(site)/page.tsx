@@ -50,14 +50,27 @@ export default async function Home() {
 
   return (
     <div className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col items-center px-4 py-10 sm:items-start lg:px-0">
-      <Image
-        loader={cloudinaryLoader}
-        src={topBanner?.image.url || ""}
-        alt={""}
-        width={1320}
-        height={48}
-        className="h-auto w-full cursor-pointer"
-      />
+      {topBanner?.link ? (
+        <a href={topBanner.link} target="_blank" rel="noopener noreferrer" className="w-full">
+          <Image
+            loader={cloudinaryLoader}
+            src={topBanner?.image.url || ""}
+            alt={topBanner?.title || "Top banner"}
+            width={1320}
+            height={48}
+            className="h-auto w-full cursor-pointer"
+          />
+        </a>
+      ) : (
+        <Image
+          loader={cloudinaryLoader}
+          src={topBanner?.image.url || ""}
+          alt={topBanner?.title || "Top banner"}
+          width={1320}
+          height={48}
+          className="h-auto w-full"
+        />
+      )}
 
       {/*First row */}
       <div className="grid max-h-fit w-full grid-cols-1 gap-6 pt-8 lg:grid-cols-2 lg:pt-14">
@@ -97,14 +110,32 @@ export default async function Home() {
       </div>
 
       {/*Middle banner */}
-      <Image
-        loader={cloudinaryLoader}
-        src={middleBanner?.image.url || ""}
-        alt={""}
-        width={1320}
-        height={510}
-        className="h-auto w-full cursor-pointer py-8 lg:py-14"
-      />
+      {middleBanner?.link ? (
+        <a
+          href={middleBanner.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full py-8 lg:py-14"
+        >
+          <Image
+            loader={cloudinaryLoader}
+            src={middleBanner?.image.url || ""}
+            alt={middleBanner?.title || "Middle banner"}
+            width={1320}
+            height={510}
+            className="h-auto w-full cursor-pointer"
+          />
+        </a>
+      ) : (
+        <Image
+          loader={cloudinaryLoader}
+          src={middleBanner?.image.url || ""}
+          alt={middleBanner?.title || "Middle banner"}
+          width={1320}
+          height={510}
+          className="h-auto w-full py-8 lg:py-14"
+        />
+      )}
 
       {/*Apostas */}
       <div className="flex w-full flex-col gap-5">
