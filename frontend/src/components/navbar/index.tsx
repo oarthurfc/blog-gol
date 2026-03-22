@@ -58,7 +58,7 @@ export function Navbar({ data }: { data: Props | null }) {
                 {data.right_navbar_items.map((item) => (
                   <li key={item.id} className="text-sm font-bold text-black lg:text-base">
                     <Link href={item.URL} target={item.target}>
-                      {item.text.toUpperCase()}
+                      {item.text}
                     </Link>
                   </li>
                 ))}
@@ -100,7 +100,7 @@ export function Navbar({ data }: { data: Props | null }) {
                     onClick={() => setIsMenuOpen(false)}
                     className="block border-b border-gray-700 py-3 text-lg transition-colors last:border-b-0 hover:text-primary-yellow"
                   >
-                    {item.text.toUpperCase()}
+                    {item.text}
                   </Link>
                 </li>
               ))}
