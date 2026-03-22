@@ -50,19 +50,13 @@ export async function POST(request: NextRequest) {
     }
 
     if (!ALLOWED_EVENTS.has(event)) {
-      return NextResponse.json(
-        { error: `Event not handled: ${event}` },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: `Event not handled: ${event}` }, { status: 400 });
     }
 
     const pathToRevalidate = ROUTE_BY_MODEL_UID[modelUid];
 
     if (!pathToRevalidate) {
-      return NextResponse.json(
-        { error: `Model not handled: ${modelUid}` },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: `Model not handled: ${modelUid}` }, { status: 400 });
     }
 
     revalidatePath(pathToRevalidate);
