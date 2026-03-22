@@ -38,20 +38,17 @@ export default async function fetchContentType<T>(
     }
 
     // Escolhe a URL base conforme ambiente (SSR/build ou client-side)
-    console.log("STRAPI_INTERNAL_URL:", process.env.STRAPI_INTERNAL_URL);
-    console.log("NEXT_PUBLIC_STRAPI_API_URL:", process.env.NEXT_PUBLIC_STRAPI_API_URL);
     const baseUrl =
       typeof window === "undefined"
         ? process.env.STRAPI_INTERNAL_URL
         : process.env.NEXT_PUBLIC_STRAPI_API_URL;
-    console.log("Base URL:", baseUrl);
+
     if (!baseUrl) {
       throw new Error("Missing STRAPI_INTERNAL_URL or NEXT_PUBLIC_STRAPI_API_URL");
     }
 
     // Construct the full URL for the API request
     const url = new URL(`api/${contentType}`, baseUrl);
-    console.log("FetchContentType URL", url.href);
 
     const queryString = qs.stringify(queryParams, {
       encode: false,
@@ -59,9 +56,23 @@ export default async function fetchContentType<T>(
     });
     const finalUrl = `${url.href}?${queryString}`;
 
-    const response = await fetch(finalUrl, {
+    const fetchOptions: RequestInit & {
+      next?: {
+        revalidate: number;
+      };
+    } = {
       method: "GET",
-    });
+    };
+
+    if (isEnabled) {
+      // Draft mode should always bypass cache to show latest preview content.
+      fetchOptions.cache = "no-store";
+    } else {
+      // Published content keeps ISR behavior consistent across routes.
+      fetchOptions.next = { revalidate: 60 };
+    }
+
+    const response = await fetch(finalUrl, fetchOptions);
 
     if (!response.ok) {
       throw new Error(
@@ -75,7 +86,6 @@ export default async function fetchContentType<T>(
       return spreadStrapiData<T>(jsonData);
     }
 
-    console.log("FetchContentType Response", jsonData);
     return jsonData as StrapiApiResponse<T>;
   } catch (error) {
     console.error("FetchContentTypeError", error);
