@@ -19,7 +19,7 @@ jobs:
 
     env:
       STRAPI_INTERNAL_URL: "https://admin.golagolesportes.com"
-      NEXT_PUBLIC_STRAPI_API_URL: "https://admin.golagolesportes.com/api"
+      NEXT_PUBLIC_STRAPI_API_URL: "https://admin.golagolesportes.com"
 
     steps:
       - name: Checkout repository
