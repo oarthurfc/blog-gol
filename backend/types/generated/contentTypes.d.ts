@@ -742,7 +742,7 @@ export interface ApiPoliticaDePrivacidadePoliticaDePrivacidade
 export interface ApiSlotSlot extends Struct.SingleTypeSchema {
   collectionName: 'slots';
   info: {
-    displayName: '/slot';
+    displayName: '/slots';
     pluralName: 'slots';
     singularName: 'slot';
   };

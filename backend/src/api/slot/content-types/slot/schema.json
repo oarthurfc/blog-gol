@@ -4,7 +4,7 @@
   "info": {
     "singularName": "slot",
     "pluralName": "slots",
-    "displayName": "/slot"
+    "displayName": "/slots"
   },
   "options": {
     "draftAndPublish": true
