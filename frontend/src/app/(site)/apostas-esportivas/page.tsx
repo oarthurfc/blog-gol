@@ -35,7 +35,15 @@ export default async function ApostasPage() {
   const apostasPage = await getApostasPage();
   const categories: Category[] | undefined = apostasPage?.categories;
 
-  console.log(apostasPage);
+  const isValidHref = (href?: string) => {
+    if (!href) {
+      return false;
+    }
+
+    const normalizedHref = href.trim();
+    return normalizedHref.startsWith("/") || /^https?:\/\//i.test(normalizedHref);
+  };
+
   return (
     <article className="m-auto flex min-h-screen w-full max-w-[1320px] flex-col px-4 py-10 lg:px-0">
       {/* Categories */}
@@ -138,9 +146,15 @@ export default async function ApostasPage() {
               </div>
 
               {/* Button */}
-              <Link href={bet.link} className="w-full sm:w-auto lg:w-auto">
-                <Button className="w-full px-8 text-black sm:w-auto sm:px-16">Cadastre-se</Button>
-              </Link>
+              {isValidHref(bet.link) ? (
+                <Link href={bet.link.trim()} className="w-full sm:w-auto lg:w-auto">
+                  <Button className="w-full px-8 text-black sm:w-auto sm:px-16">Cadastre-se</Button>
+                </Link>
+              ) : (
+                <Button className="w-full px-8 text-black sm:w-auto sm:px-16" disabled>
+                  Cadastre-se
+                </Button>
+              )}
             </div>
           ))}
         </section>

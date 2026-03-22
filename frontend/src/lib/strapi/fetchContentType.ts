@@ -40,7 +40,7 @@ export default async function fetchContentType<T>(
     // Escolhe a URL base conforme ambiente (SSR/build ou client-side)
     const baseUrl =
       typeof window === "undefined"
-        ? process.env.STRAPI_INTERNAL_URL
+        ? process.env.STRAPI_INTERNAL_URL || process.env.NEXT_PUBLIC_STRAPI_API_URL
         : process.env.NEXT_PUBLIC_STRAPI_API_URL;
 
     if (!baseUrl) {
