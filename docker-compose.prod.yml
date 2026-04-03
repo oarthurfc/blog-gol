@@ -56,16 +56,16 @@ services:
         condition: service_healthy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=Host(`admin.golagolesportes.com`)"
+      - "traefik.http.routers.backend.rule=Host(`admin.esportenaveia.com`)"
       - "traefik.http.routers.backend.entrypoints=websecure"
       - "traefik.http.routers.backend.tls.certresolver=myresolver"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
       - "traefik.http.routers.backend-http.middlewares=redirect-to-https"
       # www -> non-www redirect (preserve path and query)
       - "traefik.http.middlewares.redirect-www-to-naked.redirectregex.regex=^https?://www\\.golagolesportes\\.com(.*)"
-      - "traefik.http.middlewares.redirect-www-to-naked.redirectregex.replacement=https://golagolesportes.com$${1}"
+      - "traefik.http.middlewares.redirect-www-to-naked.redirectregex.replacement=https://esportenaveia.com$${1}"
       - "traefik.http.middlewares.redirect-www-to-naked.redirectregex.permanent=true"
-      - "traefik.http.routers.frontend-www.rule=Host(`www.golagolesportes.com`)"
+      - "traefik.http.routers.frontend-www.rule=Host(`www.esportenaveia.com`)"
       - "traefik.http.routers.frontend-www.entrypoints=websecure"
       - "traefik.http.routers.frontend-www.tls.certresolver=myresolver"
       - "traefik.http.routers.frontend-www.middlewares=redirect-www-to-naked"
@@ -79,7 +79,7 @@ services:
       - backend
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`golagolesportes.com`)"
+      - "traefik.http.routers.frontend.rule=Host(`esportenaveia.com`)"
       - "traefik.http.routers.frontend.entrypoints=websecure"
       - "traefik.http.routers.frontend.tls.certresolver=myresolver"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"

@@ -2,7 +2,7 @@ import { Author } from "@/types/author";
 import { SEO } from "@/types/seo";
 
 export function generateMetadataObject(seo?: SEO, author?: Author, publishedAt?: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://golagolesportes.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://esportenaveia.com";
 
   const title = seo?.metaTitle || "Gol a Gol | Notícias de Futebol e Jogos de Esporte";
   const description =

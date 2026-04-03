@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://golagolesportes.com";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://esportenaveia.com";
 
 // Force dynamic rendering - sitemap will be generated on each request
 export const dynamic = "force-dynamic";

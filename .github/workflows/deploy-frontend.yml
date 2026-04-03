@@ -18,8 +18,8 @@ jobs:
       packages: write
 
     env:
-      STRAPI_INTERNAL_URL: "https://admin.golagolesportes.com"
-      NEXT_PUBLIC_STRAPI_API_URL: "https://admin.golagolesportes.com"
+      STRAPI_INTERNAL_URL: "https://admin.esportenaveia.com"
+      NEXT_PUBLIC_STRAPI_API_URL: "https://admin.esportenaveia.com"
 
     steps:
       - name: Checkout repository

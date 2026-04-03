@@ -7,7 +7,7 @@ const seoData = {
   openGraph: {
     type: "website",
     title: `Gol a Gol | Notícias de Futebol e Jogos de Esporte`,
-    url: "https://golagolesportes.com",
+    url: "https://esportenaveia.com",
     description:
       "Fique por dentro do futebol nacional e internacional. Notícias, resultados, palpites e novidades sobre Jogos de Esporte você encontra aqui.",
     locale: "pt_BR",

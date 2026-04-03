@@ -324,7 +324,7 @@ export async function POST(request: NextRequest) {
               <p>Enquanto isso, continue acompanhando as últimas notícias do futebol em nosso site!</p>
               
               <center>
-                <a href="https://golagolesportes.com" class="cta-button">Visitar Gol a Gol Esportes</a>
+                <a href="https://esportenaveia.com" class="cta-button">Visitar Gol a Gol Esportes</a>
               </center>
             </div>
             <div class="footer">
@@ -345,7 +345,7 @@ export async function POST(request: NextRequest) {
 
     // Enviar email para o administrador
     const { data: adminData, error: adminError } = await resend.emails.send({
-      from: "Gol a Gol Esportes <contato@golagolesportes.com>",
+      from: "Gol a Gol Esportes <contato@esportenaveia.com>",
       to: [adminEmail],
       replyTo: email,
       subject: `[Contato] ${subject}`,
@@ -363,7 +363,7 @@ export async function POST(request: NextRequest) {
     // Enviar email de confirmação para o usuário (não bloqueia a resposta se falhar)
     resend.emails
       .send({
-        from: "Gol a Gol Esportes <contato@golagolesportes.com>",
+        from: "Gol a Gol Esportes <contato@esportenaveia.com>",
         to: [email],
         subject: "Confirmação - Mensagem Recebida | Gol a Gol Esportes",
         html: userEmailHtml,
